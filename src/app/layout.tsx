@@ -1,5 +1,6 @@
-import "./globals.css";
 
+import Theme from "@/core_components/providers/theme/theme";
+import "./globals.css";
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -8,7 +9,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        {children}
+        <Theme>
+          {children}
+        </Theme>
       </body>
     </html>
   );

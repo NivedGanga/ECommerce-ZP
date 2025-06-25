@@ -1,25 +1,82 @@
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+/* Font Face Declarations */
+@font-face {
+  font-family: 'Beatrice Display Trial';
+  src: url('/assets/fonts/beatrice-display-trial/BeatriceDeckTRIAL-Light-BF64829e8e6b5e8.woff') format('woff');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+@font-face {
+  font-family: 'Beatrice Display Trial';
+  src: url('/assets/fonts/beatrice-display-trial/BeatriceDeckTRIAL-LightItalic-BF64829e8e77d46.woff') format('woff');
+  font-weight: 300;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Beatrice Display Trial';
+  src: url('/assets/fonts/beatrice-display-trial/BeatriceDeckTRIAL-Medium-BF64829e8e8d71a.woff') format('woff');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Beatrice Display Trial';
+  src: url('/assets/fonts/beatrice-display-trial/BeatriceDeckTRIAL-MediumItalic-BF64829e917eb6c.woff') format('woff');
+  font-weight: 500;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Beatrice Display Trial';
+  src: url('/assets/fonts/beatrice-display-trial/BeatriceDeckTRIAL-Bold-BF64829e8e9ca08.woff') format('woff');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Beatrice Display Trial';
+  src: url('/assets/fonts/beatrice-display-trial/BeatriceDeckTRIAL-BoldItalic-BF64829e9186236.woff') format('woff');
+  font-weight: 700;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Beatrice Display Trial';
+  src: url('/assets/fonts/beatrice-display-trial/BeatriceDeckTRIAL-Extrabold-BF64829e8ed31e6.woff') format('woff');
+  font-weight: 800;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Beatrice Display Trial';
+  src: url('/assets/fonts/beatrice-display-trial/BeatriceDeckTRIAL-ExtraboldItalic-BF64829e917393c.woff') format('woff');
+  font-weight: 800;
+  font-style: italic;
+  font-display: swap;
 }
 
 html,
 body {
   max-width: 100vw;
   overflow-x: hidden;
+  background-image: url('./../../public/assets/noicy_bg.png');
+  background-size: cover;
+  background-position: center;
+  color: black;
 }
 
 body {
   color: var(--foreground);
   background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: 'Beatrice Display Trial';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -39,4 +96,22 @@ a {
   html {
     color-scheme: dark;
   }
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 2px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 1px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
 }
