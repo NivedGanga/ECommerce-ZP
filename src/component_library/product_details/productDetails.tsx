@@ -7,12 +7,15 @@ import React from 'react'
 
 export default function productDetails() {
     return (
-        <Stack width={300} height={'100%'} padding={'30px 30px 10px 30px'} position={'relative'} justifyContent={'space-between'} border={1} borderColor={'gray'}>
+        <Stack width={{
+            md: 300,
+            xs: '100%'
+        }} height={'100%'} padding={'30px 30px 10px 30px'} position={'relative'} justifyContent={'space-between'} border={1} borderColor={'gray'}>
             <Stack gap={1}>
                 <CapitalizedText> ABSTRACT PRINT SHIRT</CapitalizedText>
                 <Typography> $99</Typography>
                 <Typography fontSize={12} sx={{ color: '#0000009f' }}>MRP incl. of all taxes</Typography>
-            </Stack>
+            </Stack>    
             <Typography fontSize={13}>Relaxed-fit shirt. Camp collar and short sleeves. Button-up front.</Typography>
             <Stack gap={2}>
                 <BoxOptionChooser title='Color' values={[{ color: 'af9f00', value: 'yellow' },]} />

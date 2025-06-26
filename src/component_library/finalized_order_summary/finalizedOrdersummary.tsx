@@ -23,7 +23,7 @@ const FinalizedOrdersummary = () => {
                 display={'flex'}
                 flexDirection={'column'}
                 gap={1}
-                maxHeight={'40vh'}
+                maxHeight={'40dvh'}
                 overflow={'auto'}
             >
                 {

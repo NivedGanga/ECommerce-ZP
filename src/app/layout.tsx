@@ -1,6 +1,10 @@
 
 import Theme from "@/core_components/providers/theme/theme";
 import "./globals.css";
+import ReduxProvider from "@/core_components/providers/redux/reduxProvider";
+import { ToastContainer } from "react-toastify/unstyled";
+import 'react-toastify/ReactToastify.css';
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -9,9 +13,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <Theme>
-          {children}
-        </Theme>
+        <ReduxProvider>
+          <Theme>
+            {children}
+            <ToastContainer hideProgressBar />
+          </Theme>
+        </ReduxProvider>
       </body>
     </html>
   );

@@ -13,10 +13,17 @@
     "@emotion/styled": "^11.14.0",
     "@mui/icons-material": "^7.1.2",
     "@mui/material": "^7.1.2",
+    "@reduxjs/toolkit": "^2.8.2",
+    "cookies-next": "^6.0.0",
+    "firebase": "^11.9.1",
+    "formik": "^2.4.6",
     "next": "15.3.4",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
-    "react-multi-carousel": "^2.8.6"
+    "react-multi-carousel": "^2.8.6",
+    "react-redux": "^9.2.0",
+    "react-toastify": "^11.0.5",
+    "yup": "^1.6.1"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",

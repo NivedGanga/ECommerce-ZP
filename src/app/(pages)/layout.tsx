@@ -10,7 +10,7 @@ function Layout(props: Props) {
     const { children } = props
 
     return (
-        <Box overflow={'hidden'} display={'flex'} flexDirection={'column'} height={'100vh'} >
+        <Box overflow={'hidden'} display={'flex'} flexDirection={'column'} height={'100dvh'} >
             <NavigationBar />
             <Box flex={1} overflow={'auto'} >
                 {children}
