@@ -2,7 +2,7 @@ import { Box, Chip, IconButton, Stack, Typography } from '@mui/material'
 import React from 'react'
 import ItemCard from '../item_card/itemCard'
 import CountSetter from '../count_setter/countSetter'
-import {  RemoveCircleOutlineOutlined } from '@mui/icons-material'
+import { RemoveCircleOutlineOutlined } from '@mui/icons-material'
 
 interface Props {
     title: string,
@@ -22,7 +22,10 @@ function CartItemCard(props: Props) {
                 wishlistPositionProps={{ right: '1px', bottom: '1px' }}
                 wishlistButtonBgColor='transparent'
             />
-            <Stack gap={2} alignItems={'center'} padding={2}>
+            <Stack gap={2} alignItems={'center'} padding={2} paddingRight={{
+                xs: 0,
+                md: 2
+            }}>
                 <Typography>L</Typography>
                 <Chip
                     aria-label='color'

@@ -7,12 +7,12 @@ import React from 'react'
 
 function Login() {
     return (
-        <>
-            <MainHeadings lineHeight={1.4}  >
+        <React.Fragment>
+            <MainHeadings lineHeight={1}  >
                 Login
             </MainHeadings>
             <LoginForm />
-        </>
+        </React.Fragment>
 
     )
 }

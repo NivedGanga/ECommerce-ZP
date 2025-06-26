@@ -9,7 +9,10 @@ import { useRouter } from 'next/navigation'
 function RegisterForm() {
     const router = useRouter()
     return (
-        <Box gap={2} margin={'20px 0'} display={'flex'} flexDirection={'column'} width={400}>
+        <Box gap={2} margin={'20px 0'} display={'flex'} flexDirection={'column'} width={{
+            sm: 400,
+            xs: 300
+        }}>
             <StyledTextField
                 variant='outlined'
                 name="email">

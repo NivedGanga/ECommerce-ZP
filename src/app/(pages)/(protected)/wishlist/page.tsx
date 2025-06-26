@@ -1,10 +1,11 @@
-import { Box, Container, Divider } from '@mui/material'
+import { Box, Divider } from '@mui/material'
 import React from 'react'
 import WishlistItems from '@/component_library/wishlist_items/wishlistItems'
 import CapitalizedText from '@/shared_features/display_elements/capitalized_text/capitalizedText'
+import MuiContainer from '@/shared_features/display_elements/mui_container/muiContainer'
 const page = () => {
     return (
-        <Container maxWidth='lg'>
+        <MuiContainer>
             <CapitalizedText props={{ sx: { marginTop: '2rem' } }}>
                 Your favourites
             </CapitalizedText>
@@ -13,7 +14,7 @@ const page = () => {
             <Box>
                 <WishlistItems />
             </Box>
-        </Container>
+        </MuiContainer>
     )
 }
 

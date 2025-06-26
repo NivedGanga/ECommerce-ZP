@@ -5,7 +5,9 @@ import React from 'react'
 
 const OrderSummary = () => {
     return (
-        <Box border={1} padding={5} height={'fit-content'} flex={2}>
+        <Box border={1} width={{
+            xs: '100%'
+        }} padding={5} height={'fit-content'} flex={2}>
             <CapitalizedText>
                 Order Summary
             </CapitalizedText>
@@ -14,7 +16,7 @@ const OrderSummary = () => {
                     Array(3).fill(0).map((v, k) => (
                         <Box key={k} display={'flex'} justifyContent={'space-between'}>
                             <Typography sx={{ fontSize: '14px' }}>
-                                Subtotal
+                                Shirt
                             </Typography>
                             <Typography sx={{ fontSize: '14px' }}>
                                 $90
@@ -24,7 +26,14 @@ const OrderSummary = () => {
                 }
             </Stack>
             <Divider sx={{ margin: '10px 0', borderColor: 'gray' }} />
-            
+            <Box display={'flex'} marginBottom={3} justifyContent={'space-between'}>
+                <CapitalizedText>
+                    Total
+                </CapitalizedText>
+                <Typography>
+                    $270
+                </Typography>
+            </Box>
             <StyledButton variant='contained'>
                 Continue
             </StyledButton>

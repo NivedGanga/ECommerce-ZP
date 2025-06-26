@@ -7,7 +7,17 @@ const WishlistItems = () => {
         <Grid container columnSpacing={3} rowSpacing={5}>
             {
                 Array(20).fill(0).map((v, k) => (
-                    <Grid key={k} size={3} rowGap={4} columnGap={2}>
+                    <Grid key={k} size={{
+                        lg: 3,
+                        xs: 6,
+                        md: 4,
+                    }} rowGap={{
+                        md: 4,
+                        xs: 2
+                    }} columnGap={{
+                        md: 2,
+                        xs: 1
+                    }}>
                         <ItemCard category='nothing'
                             image='https://www.jiomart.com/images/product/original/rvf1r63wzz/women-trouser-casual-pants-for-women-pista-color-product-images-rvf1r63wzz-3-202305041718.jpg?im=Resize=(500,630)'
                             name='something'

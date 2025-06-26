@@ -5,14 +5,19 @@ import { Button, Typography } from '@mui/material'
 
 interface Props {
     text: string,
-    route: string
+    route: string,
+    onClick?: () => void
 }
 
-function TopBarTextButton(props: Props) {
-    const { text, route } = props
+function NavigationBarTextButton(props: Props) {
+    const { text, route, onClick } = props
     const router = useRouter()
     return (
-        <Button onClick={() => router.push(route)} sx={{ color: 'black' }} variant='text'>
+        <Button onClick={() => {
+            router.push(route)
+            if (onClick)
+                onClick()
+        }} sx={{ color: 'black' }} variant='text'>
             <Typography sx={{ fontFamily: 'Beatrice Display Trial', fontSize: '14px' }}>
                 {text}
             </Typography>
@@ -20,4 +25,4 @@ function TopBarTextButton(props: Props) {
     )
 }
 
-export default TopBarTextButton
+export default NavigationBarTextButton

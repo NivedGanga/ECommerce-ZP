@@ -1,11 +1,12 @@
-import { Box, Container } from "@mui/material";
+import MuiContainer from "@/shared_features/display_elements/mui_container/muiContainer";
+import { Box } from "@mui/material";
 
 export default function Layout({ children }: { children: React.ReactNode; }) {
     return (
-        <Container sx={{ height: '85vh', display: 'grid', placeContent: 'center' }} maxWidth='md'>
+        <MuiContainer sx={{ height: '85vh', display: 'grid', placeContent: 'center' }}>
             <Box height={'60vh'}>
                 {children}
             </Box>
-        </Container>
+        </MuiContainer>
     )
 }

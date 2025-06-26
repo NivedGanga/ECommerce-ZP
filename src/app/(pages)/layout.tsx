@@ -1,4 +1,4 @@
-import TopBar from '@/component_library/top_bar/topBar'
+import NavigationBar from '@/component_library/navigation_bar/navigationBar'
 import { Box } from '@mui/material'
 import React from 'react'
 
@@ -11,7 +11,7 @@ function Layout(props: Props) {
 
     return (
         <Box overflow={'hidden'} display={'flex'} flexDirection={'column'} height={'100vh'} >
-            <TopBar />
+            <NavigationBar />
             <Box flex={1} overflow={'auto'} >
                 {children}
             </Box>

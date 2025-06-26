@@ -5,7 +5,16 @@ import LandingGallery from './landing_gallery/landingGallery'
 
 function Landing() {
     return (
-        <Box display={'flex'} flexDirection={'row'} gap={'0 50px'} alignItems={'flex-end'} marginTop={3} component='section'>
+        <Box display={'flex'} flexDirection={{
+            md: 'row',
+            xs: 'column'
+        }} gap={{
+            md: '0 50px',
+            xs: '50px 0px'
+        }} alignItems={{
+            md: 'flex-end',
+            xs: 'flex-start'
+        }} marginTop={3} component='section'>
             <LandingOptionsSection />
             <LandingGallery />
         </Box >

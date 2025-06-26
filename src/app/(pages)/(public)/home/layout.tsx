@@ -1,4 +1,4 @@
-import { Container } from '@mui/material'
+import MuiContainer from '@/shared_features/display_elements/mui_container/muiContainer'
 import React from 'react'
 
 interface Props {
@@ -9,9 +9,9 @@ function Layout(props: Props) {
     const { children } = props
 
     return (
-        <Container maxWidth='lg'>
+        <MuiContainer>
             {children}
-        </Container>
+        </MuiContainer>
     )
 }
 
