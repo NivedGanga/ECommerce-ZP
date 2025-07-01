@@ -11,9 +11,8 @@ function LandingOptionsSection() {
     const router = useRouter()
     return (
         <Box display={'flex'} flex={1} marginTop={'20px'} alignItems={'start'} flexDirection='column'>
-            <ClickableText isDimColor text='Men' onClick={() => { console.log("hiii") }} />
-            <ClickableText isDimColor text='Women' onClick={() => { console.log("hiii") }} />
-            <ClickableText isDimColor text='Child' onClick={() => { console.log("hiii") }} />
+            <ClickableText isDimColor text='Men' onClick={() => { router.push('/products/mens casuals') }} />
+            <ClickableText isDimColor text='Women' onClick={() => { router.push('/products/womens dresses') }} />
             <SearchBar />
             <MainHeadings opacity={0.73}>
                 New <br /> Collection

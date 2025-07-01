@@ -7,18 +7,23 @@ interface Props {
     children: React.ReactNode,
     haveText?: boolean,
     text?: string,
-    route: string,
-    tilted?: boolean
+    route?: string,
+    tilted?: boolean,
+    onClick?: () => void
 }
 
 function NavigationBarIconButton(props: Props) {
-    const { children, haveText, text, route, tilted = false } = props
+    const { children, haveText, text, route, tilted = false, onClick } = props
     const router = useRouter()
     return (
         <>{
             haveText ?
                 <Box
-                    onClick={() => router.push(route)}
+                    onClick={() => {
+                        if (route) router.push(route)
+
+                        else if (onClick) onClick()
+                    }}
                 >
                     <Button variant='contained' sx={{
                         height: {
@@ -44,7 +49,10 @@ function NavigationBarIconButton(props: Props) {
                     </Button>
                 </Box> :
                 <Button
-                    onClick={() => router.push(route)}
+                    onClick={() => {
+                        if (route) router.push(route)
+                        else if (onClick) onClick()
+                    }}
                     variant='contained' sx={{
                         width: {
                             md: '50px',

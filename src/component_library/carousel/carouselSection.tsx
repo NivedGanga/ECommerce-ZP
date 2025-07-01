@@ -6,9 +6,9 @@ import Carousel from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';
 import './carousel.css'
 import ItemCard from '@/shared_features/display_elements/item_card/itemCard';
+import { ProductModel } from '@/core_components/models/product_model/productModel';
 
-function CarouselSection() {
-    const images = Array(10).fill('https://st1.bollywoodlife.com/wp-content/uploads/2024/06/comfortable-summer-dresses.jpg?impolicy=Medium_Widthonly&w=412&h=290')
+function CarouselSection({ products }: { products: Array<ProductModel> }) {
     const [currentSlide, setCurrentSlide] = useState(0);
     const [carouselRef, setCarouselRef] = useState<Carousel | null>(null);
 
@@ -88,8 +88,8 @@ function CarouselSection() {
                 showDots={false}
                 sliderClass=""
             >
-                {images.map((image, index) => (
-                    <ItemCard category='shirt' name='usp polo shirt' price={10.4} image={image} key={index} />
+                {products.map((product, index) => (
+                    <ItemCard product={product} key={index} />
                 ))}
             </Carousel>
         </Box>

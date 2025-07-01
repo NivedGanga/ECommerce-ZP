@@ -1,17 +1,29 @@
+'use client'
 import { Checkbox, FormControlLabel, Typography } from '@mui/material'
-import React from 'react'
+import React, { useState } from 'react'
 
 interface Props {
     label: string,
-    count: number
+    count: number,
+    checked?: boolean,
+    handleSelection: () => void
+    handleRemove: () => void,
 }
 
 function AccordionOptionCheckbox(props: Props) {
-    const { count, label } = props
-
+    const { count, label, checked, handleSelection, handleRemove } = props
+    const [selected, setselected] = useState(false)
     return (
         <FormControlLabel
-            control={<Checkbox />}
+            control={<Checkbox
+                onChange={(v) => {
+                    setselected(v.target.checked)
+                    if (v.target.checked) {
+                        handleSelection()
+                    } else {
+                        handleRemove()
+                    }
+                }} checked={checked ? checked : selected} />}
             label={
                 <Typography>
                     {label} &nbsp;&nbsp;(

@@ -4,6 +4,7 @@ import "./globals.css";
 import ReduxProvider from "@/core_components/providers/redux/reduxProvider";
 import { ToastContainer } from "react-toastify/unstyled";
 import 'react-toastify/ReactToastify.css';
+import Authorization from "@/core_components/providers/authorization/authorization";
 
 export default function RootLayout({
   children,
@@ -14,10 +15,12 @@ export default function RootLayout({
     <html lang="en">
       <body>
         <ReduxProvider>
-          <Theme>
-            {children}
-            <ToastContainer hideProgressBar />
-          </Theme>
+          <Authorization>
+            <Theme>
+              {children}
+              <ToastContainer hideProgressBar />
+            </Theme>
+          </Authorization>
         </ReduxProvider>
       </body>
     </html>

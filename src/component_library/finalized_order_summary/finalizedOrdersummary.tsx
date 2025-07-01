@@ -1,11 +1,15 @@
+'use client'
+import { IRootState } from '@/core_components/redux/store'
 import CapitalizedText from '@/shared_features/display_elements/capitalized_text/capitalizedText'
 import Column from '@/shared_features/display_elements/column/column'
 import FinalizedOrderItemCard from '@/shared_features/display_elements/finalized_order_item_card/finalizedOrderItemCard'
 import Row from '@/shared_features/display_elements/row/row'
 import { Box, Divider, Typography } from '@mui/material'
 import React from 'react'
+import { useSelector } from 'react-redux'
 
 const FinalizedOrdersummary = () => {
+    const cartState = useSelector((state: IRootState) => state.cart)
     return (
         <Column
             stackProps={{
@@ -27,8 +31,8 @@ const FinalizedOrdersummary = () => {
                 overflow={'auto'}
             >
                 {
-                    Array(3).fill(0).map((v, k) => (
-                        <FinalizedOrderItemCard key={k} name='' />
+                    cartState.cartItems.map((item, k) => (
+                        <FinalizedOrderItemCard key={k} item={item} />
                     ))
                 }
             </Box>
@@ -38,7 +42,7 @@ const FinalizedOrdersummary = () => {
                     Subtotal
                 </Typography>
                 <Typography sx={{ fontSize: '14px' }}>
-                    $90
+                    ${cartState.total}
                 </Typography>
             </Row>
             <Row stackProps={{ sx: { justifyContent: 'space-between' } }}>
@@ -46,7 +50,9 @@ const FinalizedOrdersummary = () => {
                     Shipping
                 </Typography>
                 <Typography sx={{ fontSize: '14px' }}>
-                    Free
+                    {
+                        cartState.total > 13 ? "Free" : '$1'
+                    }
                 </Typography>
             </Row>
             <Divider />
@@ -55,7 +61,9 @@ const FinalizedOrdersummary = () => {
                     Total
                 </CapitalizedText>
                 <Typography>
-                    $90
+                    ${
+                        cartState.total > 13 ? cartState.total : cartState.total + 1
+                    }
                 </Typography>
             </Box>
         </Column>

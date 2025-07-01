@@ -3,17 +3,41 @@ import React from 'react'
 
 interface Props {
     variant?: 'outlined' | 'filled' | 'standard'
+    label: string,
     name: string,
+    onChange?: React.ChangeEventHandler<HTMLInputElement | HTMLTextAreaElement>,
+    onBlur?: React.FocusEventHandler<HTMLInputElement | HTMLTextAreaElement>
+    value: unknown
+    helperText?: string
 }
 
 function StyledTextField(props: Props) {
-    const { name, variant = 'standard' } = props
+    const { label, variant = 'standard', onChange, value, helperText, name, onBlur } = props
 
     return (
-        <TextField
+        <TextField  
+            helperText={helperText}
+            onChange={onChange}
+            value={value}
+            onBlur={onBlur}
+            slotProps={{
+                formHelperText: {
+                    sx: {
+                        backgroundColor: 'transparent',
+                        bgcolor: 'transparent',
+                        color: 'red'
+                    }
+                },
+                input: {
+                    sx: {
+                        bgcolor: '#0000001f'
+                    }
+                }
+            }}
             variant={variant}
-            label={name}
-            sx={{ bgcolor: '#0000001f' }} fullWidth>
+            label={label}
+            name={name}
+            fullWidth>
         </TextField>
     )
 }

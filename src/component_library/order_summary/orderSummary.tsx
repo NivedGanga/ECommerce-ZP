@@ -1,9 +1,15 @@
+'use client'
+import { IRootState } from '@/core_components/redux/store'
 import CapitalizedText from '@/shared_features/display_elements/capitalized_text/capitalizedText'
 import StyledButton from '@/shared_features/display_elements/styled_button/styledButton'
 import { Box, Divider, Stack, Typography } from '@mui/material'
+import { useRouter } from 'next/navigation'
 import React from 'react'
+import { useSelector } from 'react-redux'
 
 const OrderSummary = () => {
+    const cartState = useSelector((state: IRootState) => state.cart)
+    const router = useRouter()
     return (
         <Box border={1} width={{
             xs: '100%'
@@ -11,15 +17,15 @@ const OrderSummary = () => {
             <CapitalizedText>
                 Order Summary
             </CapitalizedText>
-            <Stack marginTop={3} gap={0.5}>
+            <Stack marginTop={3} gap={1}>
                 {
-                    Array(3).fill(0).map((v, k) => (
-                        <Box key={k} display={'flex'} justifyContent={'space-between'}>
+                    cartState.cartItems.map((cartItem, k) => (
+                        <Box key={k} display={'flex'} gap={1} justifyContent={'space-between'}>
                             <Typography sx={{ fontSize: '14px' }}>
-                                Shirt
+                                {cartItem.product.name}
                             </Typography>
-                            <Typography sx={{ fontSize: '14px' }}>
-                                $90
+                            <Typography sx={{ fontSize: '14px', textWrap: 'nowrap' }}>
+                                {cartItem.product.currentPrice}x {cartItem.quantity}
                             </Typography>
                         </Box>
                     ))
@@ -31,10 +37,14 @@ const OrderSummary = () => {
                     Total
                 </CapitalizedText>
                 <Typography>
-                    $270
+                    {
+                        cartState.total
+                    }
                 </Typography>
             </Box>
-            <StyledButton variant='contained'>
+            <StyledButton
+                onClick={() => router.push('/checkout')}
+                variant='contained'>
                 Continue
             </StyledButton>
         </Box>

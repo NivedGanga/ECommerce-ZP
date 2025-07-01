@@ -1,14 +1,13 @@
+'use client'
 import { Box, Card, CardActionArea, CardContent, SxProps, Typography } from '@mui/material'
 import React from 'react'
 import ItemShowCard from '../item_show_card/itemShowCard'
 import WishlistIconButton from '../wishlist_icon_button/wishlistIconButton'
-import AddToCartButton from '../add_to_cart_button/addToCartButton'
+import { ProductModel } from '@/core_components/models/product_model/productModel'
+import { useRouter } from 'next/navigation'
 
 interface Props {
-    image: string
-    category: string,
-    name: string,
-    price: number,
+    product: ProductModel
     width?: string,
     sx?: SxProps,
     isAddToCartButtonVisible?: boolean,
@@ -22,30 +21,30 @@ interface Props {
 }
 
 function ItemCard(props: Props) {
-    const { image, category, name, price, width, sx, wishlistPositionProps, wishlistButtonBgColor, isAddToCartButtonVisible = false } = props
+    const { product, width, sx, wishlistPositionProps, wishlistButtonBgColor } = props
+    const router = useRouter()
 
     return (
         <Card elevation={0} sx={{ bgcolor: 'transparent', ...sx }}>
             <Box position={'relative'} width={width}>
-                <ItemShowCard width={width} src={image} />
-                {
-                    isAddToCartButtonVisible ?
-                        <AddToCartButton productId='' isIconButton /> :
-                        <WishlistIconButton bgColor={wishlistButtonBgColor} positionProps={wishlistPositionProps} productId='1' />
-                }
-
+                <ItemShowCard width={width} pid={product.pid} src={product.image ?? 'https://thumb.ac-illust.com/b1/b170870007dfa419295d949814474ab2_t.jpeg'} />
+                <WishlistIconButton bgColor={wishlistButtonBgColor} positionProps={wishlistPositionProps} product={product} />
             </Box>
-            <CardActionArea>
+            <CardActionArea
+                onClick={() => {
+                    router.push(`/view/${product.pid}`)
+                }}
+            >
                 <CardContent sx={{ padding: '10px 0 0 0' }}>
                     <Typography sx={{ color: '#000000af', fontWeight: '300' }}>
-                        {category}
+                        {product.brandName}
                     </Typography>
                     <Box display={'flex'} justifyContent={'space-between'}>
                         <Typography sx={{ fontWeight: '500' }}>
-                            {name}
+                            {product.name}
                         </Typography>
                         <Typography>
-                            ${price}
+                            ${product.currentPrice}
                         </Typography>
                     </Box>
                 </CardContent>

@@ -1,11 +1,11 @@
 'use client'
 import { IRootState } from '@/core_components/redux/store'
-import { getCookie } from 'cookies-next/client'
+import { getAuth, onAuthStateChanged } from 'firebase/auth'
 import { redirect } from 'next/navigation'
 import React, { useEffect } from 'react'
-import { useSelector, useDispatch } from 'react-redux'
-import { loginUser } from '@/core_components/redux/slices/auth_slice/authSlice'
-import { toast } from 'react-toastify/unstyled'
+import { useSelector } from 'react-redux'
+import { app } from '../../../../firebase.config'
+
 
 interface Props {
     children: React.ReactNode
@@ -13,19 +13,17 @@ interface Props {
 
 function AuthGaurd(props: Props) {
     const { children } = props
-    const dispatch = useDispatch()
-    const isUserAuthenticated = useSelector((state: IRootState) => state.auth.isUserAuthenticated)
 
+    const user = useSelector((state: IRootState) => state.auth.user)
+    const isUserAuthenticated = user !== null
+    const auth = getAuth(app)
     useEffect(() => {
-        const userIdFromCookie = getCookie('userId')
-        if (userIdFromCookie && !isUserAuthenticated) {
-            dispatch(loginUser(userIdFromCookie as string))
-        } else if (!userIdFromCookie && !isUserAuthenticated) {
-            console.log('user not authenticated')
-            toast('Aadhyam poyi login cheyy chekka')
-            redirect('/login')
-        }
-    }, [isUserAuthenticated, dispatch])
+        onAuthStateChanged(auth, () => {
+            if (!auth.currentUser) {
+                redirect('/login')
+            }
+        })
+    }, [isUserAuthenticated])
 
     if (!isUserAuthenticated) {
         return null

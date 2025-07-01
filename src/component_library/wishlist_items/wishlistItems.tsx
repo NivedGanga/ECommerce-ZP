@@ -1,12 +1,16 @@
+'use client'
+import { IRootState } from '@/core_components/redux/store'
 import ItemCard from '@/shared_features/display_elements/item_card/itemCard'
 import { Grid } from '@mui/material'
 import React from 'react'
+import { useSelector } from 'react-redux'
 
 const WishlistItems = () => {
+    const wishlist = useSelector((state: IRootState) => state.wishlist.wishlistItems)
     return (
         <Grid container columnSpacing={3} rowSpacing={5}>
             {
-                Array(20).fill(0).map((v, k) => (
+                wishlist.map((item, k) => (
                     <Grid key={k} size={{
                         lg: 3,
                         xs: 6,
@@ -18,10 +22,7 @@ const WishlistItems = () => {
                         md: 2,
                         xs: 1
                     }}>
-                        <ItemCard category='nothing'
-                            image='https://www.jiomart.com/images/product/original/rvf1r63wzz/women-trouser-casual-pants-for-women-pista-color-product-images-rvf1r63wzz-3-202305041718.jpg?im=Resize=(500,630)'
-                            name='something'
-                            price={90} isAddToCartButtonVisible />
+                        <ItemCard product={{ ...item, inWishlist: true }} />
                     </Grid>
                 ))
             }

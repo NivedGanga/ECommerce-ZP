@@ -15,7 +15,10 @@ const CheckoutArea = () => {
                 md: 'row',
                 xs: 'column'
             },
-            alignItems: 'center',
+            alignItems: {
+                xs: 'center',
+                md: 'start'
+            },
             marginBottom: {
                 xs: 5,
                 md: 0

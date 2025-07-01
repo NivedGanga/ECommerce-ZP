@@ -1,8 +1,7 @@
 export interface LoginModel {
-    email: string,
-    password: string
+    email: string | null,
 }
 
 export interface RegisterModel extends LoginModel {
-    fullName: string
+    fullName: string | null
 }

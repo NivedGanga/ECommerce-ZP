@@ -33,7 +33,7 @@ const NavigationBarRoutingButtons = () => {
             }}>
                 <NavigationBarTextButton text='Home' route='/home' />
                 <NavigationBarTextButton text='Collections' route='/products' />
-                <NavigationBarTextButton text='New' route='/' />
+                {/* <NavigationBarTextButton text='New' route='/' /> */}
             </Box>
             <Dialog
                 sx={{

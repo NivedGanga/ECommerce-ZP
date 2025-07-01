@@ -4,19 +4,24 @@ import { Box, Button } from '@mui/material'
 import React, { useState } from 'react'
 
 interface Props {
-    inititalCount?: number
+    inititalCount?: number,
+    onIncrment: (quantity:number) => void,
+    onDecrement: (quantity:number) => void
 }
 
 function CountSetter(props: Props) {
-    const { inititalCount = 1 } = props
+    const { inititalCount = 1, onDecrement, onIncrment } = props
     const [count, setCount] = useState(inititalCount)
 
     const handleIncrementCount = () => {
+        onIncrment(count+1)
         setCount(count + 1)
     }
     const handleDecrementCount = () => {
-        if (count > 1)
+        if (count > 1) {
+            onDecrement(count-1)
             setCount(count - 1)
+        }
     }
     return (
         <Box border={1}>
@@ -31,7 +36,7 @@ function CountSetter(props: Props) {
                 width: "27px",
                 height: "27px",
                 placeContent: 'center',
-                fontSize:'small'
+                fontSize: 'small'
             }}>
                 {count}
             </Box>
