@@ -12,15 +12,19 @@ export const useProductContent = () => {
     const [facet, setFacet] = useState<FacetModel | null>(null)
     const [selectedFacets, setSelectedFacets] = useState<Array<Facet>>([])
     const [facetsSelected, setFacetsSelected] = useState(false)
+    const [page, setPage] = useState(0)
+
     useEffect(() => {
         setFacetsSelected(selectedFacets.some(facet => facet.facetValues.length > 0))
-    },[selectedFacets])
+    }, [selectedFacets])
+
+
     const fetchProductContents = (q?: string, filters?: object, preserveSelectedFacets?: boolean) => {
         setProducts([])
         setLoading(true)
         fetchProducts({
             categoryId: mensClothingCategoryId,
-            offset: 0,
+            offset: page * 30,
             store: 'US',
             q: q,
             limit: 30,
@@ -32,7 +36,7 @@ export const useProductContent = () => {
                 setSelectedFacets(facet.facets.map((f) => ({ ...f, facetValues: [] })))
             }
             setProducts(results)
-             setLoading(false)
+            setLoading(false)
         },
             (error) => {
                 toast.error(error)
@@ -72,6 +76,15 @@ export const useProductContent = () => {
         console.log(filters)
         fetchProductContents(q, filters, true)
     }
+
+    const changePage = (option: 'prev' | 'next') => {
+        if (option == 'next') {
+            setPage(page + 1)
+        } else {
+            setPage(page - 1)
+        }
+    }
+
     return {
         products,
         fetchProductContents,
@@ -81,6 +94,8 @@ export const useProductContent = () => {
         handleFacetSelection,
         clearFacets,
         applyFilters,
-        facetsSelected
+        facetsSelected,
+        changePage,
+        page
     }
 }

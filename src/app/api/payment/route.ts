@@ -24,8 +24,8 @@ export async function POST(req: NextRequest) {
                     quantity: 1,
                 },
             ],
-            success_url: 'http://localhost:3000/payment/success',
-            cancel_url: 'http://localhost:3000/checkout',
+            success_url: `http://${process.env.NEXT_PUBLIC_DOMAIN}/payment/success`,
+            cancel_url: `http://${process.env.NEXT_PUBLIC_DOMAIN}/checkout`,
         });
         return NextResponse.json({ id: session.id });
     } catch (err) {

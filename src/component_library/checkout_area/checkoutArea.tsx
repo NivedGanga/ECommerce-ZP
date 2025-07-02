@@ -1,9 +1,13 @@
+'use client'
 import React from 'react'
 import CheckoutTabs from '@/component_library/checkout_tabs/checkoutTabs'
 import { Box, Stack } from '@mui/material'
 import FinalizedOrdersummary from '../finalized_order_summary/finalizedOrdersummary'
+import { useSelector } from 'react-redux'
+import { IRootState } from '@/core_components/redux/store'
 
 const CheckoutArea = () => {
+    const cartState = useSelector((state: IRootState) => state.cart)
     return (
         <Stack sx={{
             gap: {
@@ -27,7 +31,7 @@ const CheckoutArea = () => {
             <Box flex={2}>
                 <CheckoutTabs />
             </Box>
-            <FinalizedOrdersummary />
+            <FinalizedOrdersummary cartItems={cartState.cartItems} total={cartState.total} />
         </Stack>
     )
 }

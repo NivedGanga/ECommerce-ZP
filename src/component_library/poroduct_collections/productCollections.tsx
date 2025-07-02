@@ -7,10 +7,16 @@ import FiltersFab from '../filters_fab/filtersFab'
 import { useProductContent } from '../product_content/useProductContent'
 
 const ProductCollections = ({ q }: { q?: string }) => {
-    const { loading, fetchProductContents, products, facet, handleFacetSelection, clearFacets, applyFilters, facetsSelected } = useProductContent()
+    const { loading, fetchProductContents, products, facet, page, handleFacetSelection, clearFacets, applyFilters, facetsSelected, changePage } = useProductContent()
     useEffect(() => {
         fetchProductContents(q)
     }, [])
+
+    useEffect(() => {
+        if (page == 0) return;
+        applyFilters(q)
+        console.log(page)
+    }, [page])
 
     return (
         <>
@@ -31,7 +37,7 @@ const ProductCollections = ({ q }: { q?: string }) => {
                     <Typography fontSize={'larger'} fontWeight={'600'} sx={{ textTransform: 'uppercase', marginTop: 1 }}>
                         Products
                     </Typography>
-                    <ProductContent loading={loading} products={products} />
+                    <ProductContent page={page} changePage={changePage} loading={loading} products={products} />
                 </Box>
             </Box>
             <FiltersFab facetsSelected={facetsSelected}

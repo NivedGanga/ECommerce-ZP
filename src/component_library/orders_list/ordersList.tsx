@@ -1,17 +1,29 @@
+'use client'
 import { Grid } from '@mui/material'
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useOrdersList } from './useOrdersList'
+import OrderCard from '@/shared_features/display_elements/order_card/orderCard'
+import LoadingOrderList from './loading/loadingOrderList'
 
 const OrdersList = () => {
-    const { loading, orders } = useOrdersList()
+    const { loading, orders, getAllOrders } = useOrdersList()
+    useEffect(() => {
+        getAllOrders()
+    }, [])
+
     return (
-        <Grid container>
+        <Grid container columnSpacing={5} rowSpacing={8} paddingBottom={10}>
             {
-                loading ? 'Loading' : <>
+                loading ? <LoadingOrderList />  : <>
                     {
                         orders.map((order, key) =>
-                            <Grid key={key}>
-
+                            <Grid size={{
+                                lg: 3,
+                                md: 4,
+                                xs: 6
+                            }
+                            } key={key}>
+                                <OrderCard order={order} />
                             </Grid>
                         )
                     }

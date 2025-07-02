@@ -40,7 +40,7 @@ export const useCheckout = () => {
             const ordersQuery = query(ordersRef, orderBy("timestamp", "desc"))
             const querySnapshot = await getDocs(ordersQuery)
             const orders = querySnapshot.docs.map(doc => ({
-                id: doc.id,
+                docId: doc.id,
                 ...doc.data()
             } as CheckoutModel & { id: string }))
             console.log(orders)
@@ -49,8 +49,33 @@ export const useCheckout = () => {
             onError(error instanceof Error ? error.message : "Failed to fetch orders")
         }
     }
+
+    const fetchOrderById = async (docId: string, onSuccess: (order: CheckoutModel) => void, onError: (error: string) => void) => {
+        if (!user) {
+            onError("User not authenticated")
+            return
+        }
+        try {
+            const { doc, getDoc } = await import("firebase/firestore")
+            const orderRef = doc(firestoreDb, dataCollection, user.uid, ordersCollection, docId)
+            const docSnapshot = await getDoc(orderRef)
+            
+            if (docSnapshot.exists()) {
+                const order = {
+                    docId: docSnapshot.id,
+                    ...docSnapshot.data()
+                } as CheckoutModel & { docId: string }
+                onSuccess(order)
+            } else {
+                onError("Order not found")
+            }
+        } catch (error) {
+            onError(error instanceof Error ? error.message : "Failed to fetch order")
+        }
+    }
     return {
         checkoutOrder,
-        fetchCheckoutOrders
+        fetchCheckoutOrders,
+        fetchOrderById
     }
 }

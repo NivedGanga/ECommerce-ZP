@@ -26,7 +26,7 @@ function ShipmentDetails(props: Props) {
             <Typography marginTop={2}>Expected delivery :</Typography>
             <Typography fontWeight={'600'} marginBottom={4}>
                 {
-                    dateFormater(Date.now())
+                    dateFormater(Date.now(),5)
                 }
             </Typography>
             <Row stackProps={{ sx: { gap: 2 } }}>

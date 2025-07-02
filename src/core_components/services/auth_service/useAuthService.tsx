@@ -5,7 +5,7 @@ import { app } from "../../../../firebase.config";
 export const useAuthService = () => {
     const auth = getAuth(app);
     const actionCodeSettings = {
-        url: 'http://localhost:3000/authstatus',
+        url: `http://${process.env.NEXT_PUBLIC_DOMAIN}/authstatus`,
         handleCodeInApp: true,
     };
 

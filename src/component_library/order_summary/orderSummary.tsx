@@ -11,7 +11,9 @@ const OrderSummary = () => {
     const cartState = useSelector((state: IRootState) => state.cart)
     const router = useRouter()
     return (
-        <Box border={1} width={{
+        <Box border={1}
+            overflow={'auto'}
+            width={{
             xs: '100%'
         }} padding={5} height={'fit-content'} flex={2}>
             <CapitalizedText>

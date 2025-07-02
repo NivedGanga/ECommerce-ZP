@@ -42,6 +42,7 @@ function SideBar({ facet, handleFacetSelection, clearFacets, applyFilters, q, fa
             {
                 !loading && <Box position={'absolute'} left={0} display={'flex'} gap={1} right={0} mx={'auto'} top={'79dvh'}>
                     <StyledButton
+                        bgColor='#ffffff'
                         onClick={() => {
                             clearFacets();
                             setReseted(true)

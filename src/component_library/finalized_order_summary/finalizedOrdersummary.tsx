@@ -1,15 +1,17 @@
-'use client'
-import { IRootState } from '@/core_components/redux/store'
+
+import { CartModel } from '@/core_components/models/cartModel/cartModel'
 import CapitalizedText from '@/shared_features/display_elements/capitalized_text/capitalizedText'
 import Column from '@/shared_features/display_elements/column/column'
 import FinalizedOrderItemCard from '@/shared_features/display_elements/finalized_order_item_card/finalizedOrderItemCard'
 import Row from '@/shared_features/display_elements/row/row'
 import { Box, Divider, Typography } from '@mui/material'
 import React from 'react'
-import { useSelector } from 'react-redux'
-
-const FinalizedOrdersummary = () => {
-    const cartState = useSelector((state: IRootState) => state.cart)
+interface Props {
+    cartItems: Array<CartModel>,
+    total: number
+}
+const FinalizedOrdersummary = (props: Props) => {
+    const { cartItems, total } = props
     return (
         <Column
             stackProps={{
@@ -31,7 +33,7 @@ const FinalizedOrdersummary = () => {
                 overflow={'auto'}
             >
                 {
-                    cartState.cartItems.map((item, k) => (
+                    cartItems.map((item, k) => (
                         <FinalizedOrderItemCard key={k} item={item} />
                     ))
                 }
@@ -42,7 +44,7 @@ const FinalizedOrdersummary = () => {
                     Subtotal
                 </Typography>
                 <Typography sx={{ fontSize: '14px' }}>
-                    ${cartState.total}
+                    ${total}
                 </Typography>
             </Row>
             <Row stackProps={{ sx: { justifyContent: 'space-between' } }}>
@@ -51,7 +53,7 @@ const FinalizedOrdersummary = () => {
                 </Typography>
                 <Typography sx={{ fontSize: '14px' }}>
                     {
-                        cartState.total > 13 ? "Free" : '$1'
+                        total > 13 ? "Free" : '$1'
                     }
                 </Typography>
             </Row>
@@ -62,7 +64,7 @@ const FinalizedOrdersummary = () => {
                 </CapitalizedText>
                 <Typography>
                     ${
-                        cartState.total > 13 ? cartState.total : cartState.total + 1
+                        total > 13 ? total : total + 1
                     }
                 </Typography>
             </Box>

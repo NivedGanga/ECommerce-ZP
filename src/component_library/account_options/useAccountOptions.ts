@@ -5,14 +5,15 @@ import { toast } from "react-toastify/unstyled"
 export const useAccountOptions = () => {
     const { logout } = useAuthService()
     const [loading, setLoading] = useState(false)
-    const handleLogout = () => {
+
+    const handleLogout = async () => {
         setLoading(true)
-        logout(() => {
+        await logout(() => {
             window.location.href = '/'
-            setLoading(true)
+            setLoading(false)
         }, (error) => {
             toast.error(error)
-            setLoading(true)
+            setLoading(false)
         })
     }
 
