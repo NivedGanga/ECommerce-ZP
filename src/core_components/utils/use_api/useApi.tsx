@@ -10,7 +10,6 @@ export const useApi = () => {
         }
     })
     const get = async (endUrl: string, params: object, onSuccess: (res: AxiosResponse) => void, onError: (error: string) => void) => {
-        console.log('params', params)
         await axiosSession.get(endUrl, {
             params: params
         }).then((res) => {
@@ -19,7 +18,19 @@ export const useApi = () => {
             onError(error)
         })
     }
+    const post = async (endUrl: string, data: object | string | number, onSuccess: (res: AxiosResponse) => void, onError: (error: string) => void, donotUseBaseUrl?: boolean) => {
+        let a = axiosSession
+        if (donotUseBaseUrl) {
+            a = axios
+        }
+        await a.post(endUrl, data).then((res) => {
+            onSuccess(res)
+        }).catch((error) => {
+            onError(error)
+        })
+    }
     return {
-        get
+        get,
+        post
     }
 }

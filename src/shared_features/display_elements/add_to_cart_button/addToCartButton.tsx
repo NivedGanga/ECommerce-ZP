@@ -19,7 +19,9 @@ function AddToCartButton(props: Props) {
     console.log(product)
     const { addToCart, loading, success } = useAddToCart()
     const router = useRouter()
+
     const handleOnClick = () => {
+
         if (success || product.inCart) {
             router.push('/cart')
             return;

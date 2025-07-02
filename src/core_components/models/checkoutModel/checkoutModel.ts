@@ -6,5 +6,6 @@ export interface CheckoutModel {
     address: AddressModel,
     contactInfo: ContactInfoModel,
     items: Array<CartModel>,
+    total: number,
     date: number
 }

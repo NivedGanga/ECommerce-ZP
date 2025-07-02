@@ -10,6 +10,7 @@ export const useWishlist = () => {
     const user = useSelector((state: IRootState) => state.auth.user)
 
     const addItemToWishList = async (product: ProductModel, onSuccess: () => void, onError: (error: string) => void) => {
+        
         await setDoc(doc(firestoreDb, dataCollection, user!.uid, wishListCollection, product.pid.toString()), product)
             .then(() =>
                 onSuccess()

@@ -25,13 +25,32 @@ export const useCheckout = () => {
             }, (error) => {
                 onError(error)
             })
-
         } catch (error) {
             onError(error instanceof Error ? error.message : "Failed to save order")
         }
     }
-
+    const fetchCheckoutOrders = async (onSuccess: (orders: CheckoutModel[]) => void, onError: (error: string) => void) => {
+        if (!user) {
+            onError("User not authenticated")
+            return
+        }
+        try {
+            const { getDocs, query, orderBy } = await import("firebase/firestore")
+            const ordersRef = collection(firestoreDb, dataCollection, user.uid, ordersCollection)
+            const ordersQuery = query(ordersRef, orderBy("timestamp", "desc"))
+            const querySnapshot = await getDocs(ordersQuery)
+            const orders = querySnapshot.docs.map(doc => ({
+                id: doc.id,
+                ...doc.data()
+            } as CheckoutModel & { id: string }))
+            console.log(orders)
+            onSuccess(orders)
+        } catch (error) {
+            onError(error instanceof Error ? error.message : "Failed to fetch orders")
+        }
+    }
     return {
-        checkoutOrder
+        checkoutOrder,
+        fetchCheckoutOrders
     }
 }

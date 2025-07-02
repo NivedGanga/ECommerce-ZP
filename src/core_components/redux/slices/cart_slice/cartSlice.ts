@@ -1,5 +1,6 @@
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
 import { CartModel } from "@/core_components/models/cartModel/cartModel";
+import { formatInteger } from "@/core_components/utils/format_integer/format_integer";
 
 interface CartState {
     cartItems: Array<CartModel>
@@ -22,7 +23,7 @@ const cartSlice = createSlice({
         setCartItems: (state, action: PayloadAction<Array<CartModel>>) => {
             state.cartItems = action.payload
             const total = action.payload.reduce((sum, item) => sum + (item.product.currentPrice! * item.quantity), 0)
-            state.total = Math.round(total * 100) / 100
+            state.total = formatInteger(total)
         },
         setCartLoading: (state, action: PayloadAction<boolean>) => {
             state.loading = action.payload
@@ -36,16 +37,15 @@ const cartSlice = createSlice({
                 const oldItem = state.cartItems[index];
                 const oldItemTotal = oldItem.product.currentPrice! * oldItem.quantity;
                 const newItemTotal = action.payload.product.currentPrice! * action.payload.quantity;
-
                 state.cartItems[index] = action.payload;
-                state.total = Math.round((state.total - oldItemTotal + newItemTotal) * 100) / 100;
+                state.total = formatInteger(state.total - oldItemTotal + newItemTotal)
             }
         },
         deleteCartItem: (state, action: PayloadAction<number>) => {
             const itemToDelete = state.cartItems.find(item => item.product.pid === action.payload);
             if (itemToDelete) {
                 const itemTotal = itemToDelete.product.currentPrice! * itemToDelete.quantity;
-                state.total = state.total - itemTotal;
+                state.total = formatInteger(state.total - itemTotal);
             }
             state.cartItems = state.cartItems.filter(item => item.product.pid !== action.payload);
         }

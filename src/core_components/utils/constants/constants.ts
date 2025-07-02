@@ -14,3 +14,5 @@ export const facetValuesException = [
     'discount_band',
 ]
 export const checkoutSteps = ['information', 'shipping', 'payment']
+
+export const checkoutItemKey = 'checkoutItem'

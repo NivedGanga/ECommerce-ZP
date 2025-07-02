@@ -5,6 +5,7 @@ import CheckoutForm from '../checkout_form/checkoutForm';
 import ShipmentDetails from '../shipment_details/shipmentDetails';
 import { checkoutSteps } from '@/core_components/utils/constants/constants';
 import { useCheckoutArea } from '../checkout_area/useCheckoutArea';
+import PaymentButton from '../payment_button/paymentButton';
 
 interface TabPanelProps {
     children?: React.ReactNode;
@@ -30,9 +31,10 @@ function TabPanel(props: TabPanelProps) {
 
 const CheckoutTabs = () => {
     const [activeStep, setActiveStep] = useState(0);
-    const { formik, success } = useCheckoutArea()
+    const { formik, success, checkoutModel } = useCheckoutArea()
 
     useEffect(() => {
+        console.log(success)
         if (success == 'next') {
             handleNext()
         }
@@ -42,7 +44,7 @@ const CheckoutTabs = () => {
         const newActiveStep = activeStep + 1;
         setActiveStep(newActiveStep);
     };
-    
+
     const handleBack = () => {
         setActiveStep((prevActiveStep) => prevActiveStep - 1);
     };
@@ -88,7 +90,7 @@ const CheckoutTabs = () => {
                     <ShipmentDetails onBack={() => handleBack()} onProceed={() => handleNext()} />
                 </TabPanel>
                 <TabPanel value={activeStep} index={2}>
-                    Payment Screen
+                    <PaymentButton checkoutModel={checkoutModel!} />
                 </TabPanel>
             </React.Fragment>
         </>

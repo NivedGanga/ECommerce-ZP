@@ -1,3 +1,4 @@
+import { dateFormater } from '@/core_components/utils/date_formatter/date_formatter'
 import CapitalizedText from '@/shared_features/display_elements/capitalized_text/capitalizedText'
 import Row from '@/shared_features/display_elements/row/row'
 import StyledButton from '@/shared_features/display_elements/styled_button/styledButton'
@@ -23,7 +24,11 @@ function ShipmentDetails(props: Props) {
                 </Typography>
             </Typography>
             <Typography marginTop={2}>Expected delivery :</Typography>
-            <Typography fontWeight={'600'} marginBottom={4}>14 March</Typography>
+            <Typography fontWeight={'600'} marginBottom={4}>
+                {
+                    dateFormater(Date.now())
+                }
+            </Typography>
             <Row stackProps={{ sx: { gap: 2 } }}>
                 <StyledButton onClick={onBack} variant='outlined'>
                     Back

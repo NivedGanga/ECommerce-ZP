@@ -4,6 +4,7 @@ import { markWishlist } from "@/core_components/redux/slices/home_slice/homeSlic
 import { addWishlistItem, removeWishlistItem, setWishlistItems, setWishlistLoading } from "@/core_components/redux/slices/wishlist_slice/wishlistSlice"
 import { IRootState } from "@/core_components/redux/store"
 import { useWishlist } from "@/core_components/services/wishlist_service/useWishlist"
+import { useRouter } from "next/navigation"
 import { useDispatch, useSelector } from "react-redux"
 import { toast } from "react-toastify/unstyled"
 
@@ -11,8 +12,12 @@ export const useWishlistItems = () => {
     const { addItemToWishList, getWishlistItems, removeItemFromWishlist } = useWishlist()
     const dispatch = useDispatch()
     const currentUser = useSelector((state: IRootState) => state.auth.user)
+    const router = useRouter()
 
     const addItem = (product: ProductModel) => {
+        if (!currentUser) {
+            router.push('/login')
+        }
         addItemToWishList(product,
             () => {
                 dispatch(addWishlistItem(product))

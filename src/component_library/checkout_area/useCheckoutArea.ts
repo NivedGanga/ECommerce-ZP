@@ -2,7 +2,7 @@ import { CheckoutModel } from '@/core_components/models/checkoutModel/checkoutMo
 import { IRootState } from '@/core_components/redux/store'
 import { useCheckout } from '@/core_components/services/checkout_service/useCheckout'
 import { useFormik } from 'formik'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { toast } from 'react-toastify/unstyled'
 import * as Yup from 'yup'
@@ -10,7 +10,10 @@ export const useCheckoutArea = () => {
     const [loading, setLoading] = useState(false)
     const [success, setSuccess] = useState<'next' | 'ordered' | null>(null)
     const [checkoutModel, setCheckoutModel] = useState<CheckoutModel | null>(null)
-    const cartItems = useSelector((state: IRootState) => state.cart.cartItems)
+    const cart = useSelector((state: IRootState) => state.cart)
+    useEffect(() => {
+        setSuccess(null)
+    }, [success])
     interface CheckoutFormValues {
         address: string
         city: string
@@ -51,19 +54,24 @@ export const useCheckoutArea = () => {
         initialValues: initialFormValues,
         enableReinitialize: false,
         onSubmit: (values) => {
+            console.log('helloo')
             setSuccess('next')
             const _checkoutModel: CheckoutModel = {
                 address: {
-                    ...values,
+                    address: values.address,
+                    city: values.city,
+                    fullName: values.fullName,
+                    state: values.state,
                     phone: values.phone2!,
                     postalCode: values.postalCode!
                 },
                 contactInfo: {
-                    ...values,
+                    email: values.email,
                     phone: values.phone!
                 },
-                items: cartItems,
-                date: Date.now()
+                items: cart.cartItems,
+                date: Date.now(),
+                total: cart.total,
             }
             setCheckoutModel(_checkoutModel)
         }
@@ -81,5 +89,5 @@ export const useCheckoutArea = () => {
         })
     }
 
-    return { formik, loading, success, placeOrder }
+    return { formik, loading, success, placeOrder, checkoutModel }
 }
