@@ -1,6 +1,6 @@
 'use client'
 import { Checkbox, FormControlLabel, Typography } from '@mui/material'
-import React, { useState } from 'react'
+import React from 'react'
 
 interface Props {
     label: string,
@@ -10,20 +10,19 @@ interface Props {
     handleRemove: () => void,
 }
 
-function AccordionOptionCheckbox(props: Props) {
-    const { count, label, checked, handleSelection, handleRemove } = props
-    const [selected, setselected] = useState(false)
+const AccordionOptionCheckbox = React.memo((props: Props) => {
+    const { count, label, checked = false, handleSelection, handleRemove } = props
+
     return (
         <FormControlLabel
             control={<Checkbox
                 onChange={(v) => {
-                    setselected(v.target.checked)
                     if (v.target.checked) {
                         handleSelection()
                     } else {
                         handleRemove()
                     }
-                }} checked={checked ? checked : selected} />}
+                }} checked={checked} />}
             label={
                 <Typography>
                     {label} &nbsp;&nbsp;(
@@ -34,6 +33,8 @@ function AccordionOptionCheckbox(props: Props) {
                 </Typography>}
         />
     )
-}
+})
+
+AccordionOptionCheckbox.displayName = 'AccordionOptionCheckbox'
 
 export default AccordionOptionCheckbox

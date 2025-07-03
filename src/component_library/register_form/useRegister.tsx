@@ -11,7 +11,6 @@ const initialValues: RegisterModel = {
 export const useRegister = () => {
     const [loading, setLoading] = useState(false)
     const { sendEmailLinkService } = useAuthService()
-    // const dispatch = useDispatch()
     const registerFormSchema = Yup.object().shape({
         email: Yup.string().email().required(),
         fullName: Yup.string().required(),

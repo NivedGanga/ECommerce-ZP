@@ -6,10 +6,11 @@ import { Box, Grid, Stack } from '@mui/material'
 import React from 'react'
 import LoadingProductContent from './loading/loadingProductContent'
 import StyledButton from '@/shared_features/display_elements/styled_button/styledButton'
+import { productsItemCount } from '@/core_components/utils/constants/constants'
 
 function ProductContent(
     { loading, products, changePage, page }:
-        { loading: boolean, products: Array<ProductModel>, changePage: (option: "prev" | "next") => void, page: number }) {
+        { loading: boolean, products: Array<ProductModel>, changePage: (option: "prev" | "next") => void, page: number | null }) {
 
     return (
         <Box>
@@ -34,11 +35,11 @@ function ProductContent(
                     </Grid>
             }
             <Stack direction={'row'} margin={'0 20px'} gap={2}>
-                <StyledButton isEnabled={page > 0}
+                <StyledButton isEnabled={(page ?? 0) > 0}
                     onClick={() => changePage('prev')}
                 >Prev</StyledButton>
                 <StyledButton
-                    
+                    isEnabled={products.length == productsItemCount}
                     onClick={() => changePage('next')}>Next</StyledButton>
             </Stack>
         </Box>

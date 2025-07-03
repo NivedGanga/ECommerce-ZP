@@ -2,9 +2,15 @@ import React from 'react'
 import { List, Typography } from '@mui/material'
 import DottedDivider from '@/shared_features/display_elements/dotted_divider/dottedDivider';
 import FilterAccordion from '@/shared_features/display_elements/filter_accordion/filterAccordion';
-import { FacetModel, FacetValue } from '@/core_components/models/facetModel/facetModel';
+import { FacetModel, FacetValue, Facet } from '@/core_components/models/facetModel/facetModel';
 
-const FilterOptions = ({ facet, handleFacetSelection }: { facet: FacetModel | null, handleFacetSelection: (facetIndex: number, facetValue: FacetValue, operation?: 'add' | 'remove') => void}) => {
+interface FilterOptionsProps {
+    facet: FacetModel | null
+    handleFacetSelection: (facetIndex: number, facetValue: FacetValue, operation?: 'add' | 'remove') => void
+    selectedFacets?: Array<Facet>
+}
+
+const FilterOptions = ({ facet, handleFacetSelection, selectedFacets = [] }: FilterOptionsProps) => {
     return (
         <React.Fragment >
             <Typography marginBottom={3} fontSize={'large'}>Filters</Typography>
@@ -13,7 +19,11 @@ const FilterOptions = ({ facet, handleFacetSelection }: { facet: FacetModel | nu
                     {facet.facets.map((facet, index) => (
                         <FilterAccordion
                             handleFacetSelection={handleFacetSelection}
-                            facetIndex={index} key={index} title={facet.name} options={facet.facetValues} />
+                            facetIndex={index}
+                            key={facet.id}
+                            title={facet.name}
+                            options={facet.facetValues}
+                            selectedFacets={selectedFacets} />
                     ))}
                     <DottedDivider />
                 </List>

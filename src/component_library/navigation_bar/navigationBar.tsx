@@ -14,28 +14,34 @@ function NavigationBar() {
             sx={{
                 bgcolor: 'transparent',
                 backdropFilter: 'blur(10px)',
-                zIndex:2
+                zIndex: 2
             }}
             elevation={0}>
             <MuiContainer sx={{
-                margin: '20px auto', alignItems: 'center', display: 'flex', justifyContent: {
+                margin: '20px auto',
+                alignItems: 'center',
+                display: 'flex',
+                justifyContent: {
                     md: 'space-between',
                     xs: 'flex-end'
                 },
                 position: 'relative'
             }}>
                 <NavigationBarRoutingButtons />
-                <Box display={'flex'} gap={{
-                    md: '0 30px',
-                    xs: '0 10px'
-                }} sx={{}}>
+                <Box
+                    display={'flex'}
+                    gap={{
+                        md: '30px',
+                        xs: '10px'
+                    }}
+                >
                     <NavigationBarIconButton tilted route='/wishlist'>
                         <FavoriteBorderOutlinedIcon />
                     </NavigationBarIconButton>
                     <NavigationBarIconButton route='/cart' text='cart' haveText>
                         <ShoppingCartOutlinedIcon />
                     </NavigationBarIconButton>
-                    <AccountButton/>
+                    <AccountButton />
                 </Box>
             </MuiContainer>
         </AppBar>

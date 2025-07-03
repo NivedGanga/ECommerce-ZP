@@ -5,7 +5,10 @@ import ReduxProvider from "@/core_components/providers/redux/reduxProvider";
 import { ToastContainer } from "react-toastify/unstyled";
 import 'react-toastify/ReactToastify.css';
 import Authorization from "@/core_components/providers/authorization/authorization";
-
+export const metadata = {
+  title: "Loom n' Soul",
+};
+  
 export default function RootLayout({
   children,
 }: Readonly<{

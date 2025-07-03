@@ -14,12 +14,15 @@ export interface FacetValue {
     count: number,
     id: string,
     name: string,
-    isSelected: true
+    isSelected?: boolean
+}
+
+export const isFacetValueSelected = (selectedFacets: Facet[], facetIndex: number, valueId: string): boolean => {
+    return selectedFacets[facetIndex]?.facetValues.some(fv => fv.id === valueId) ?? false
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function fromJsonToFacetModel(json: any): FacetModel {
-
     const facetModel: FacetModel = {
         facets: [
             ...json.facets

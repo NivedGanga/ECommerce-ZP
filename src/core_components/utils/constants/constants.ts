@@ -16,3 +16,4 @@ export const facetValuesException = [
 export const checkoutSteps = ['information', 'shipping', 'payment']
 
 export const checkoutItemKey = 'checkoutItem'
+export const productsItemCount = 30

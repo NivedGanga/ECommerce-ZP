@@ -1,57 +1,43 @@
 'use client'
-import TuneOutlinedIcon from '@mui/icons-material/TuneOutlined'; import { Box, Dialog, Fab, Stack, Typography } from '@mui/material'
-import React, { useEffect, useState } from 'react'
-import FilterOptions from '../filter_options/filterOptions';
+import TuneOutlinedIcon from '@mui/icons-material/TuneOutlined';
+import { Box, Dialog, Fab, Stack, Typography } from '@mui/material'
+import React, { lazy, Suspense } from 'react'
 import StyledButton from '@/shared_features/display_elements/styled_button/styledButton';
-import { FacetModel, FacetValue } from '@/core_components/models/facetModel/facetModel';
-interface Props {
-    facet: FacetModel | null;
-    handleFacetSelection: (facetIndex: number, facetValue: FacetValue, operation?: 'add' | 'remove') => void;
-    clearFacets: () => void;
-    q?: string;
-    applyFilters: (q?: string) => void;
-    facetsSelected: boolean;
-}
-const FiltersFab = ({ facet, handleFacetSelection, clearFacets, applyFilters, q, facetsSelected }: Props) => {
-    const [filterDialogOpen, setfilterDialogOpen] = useState(false)
-    const handleClose = () => {
-        setfilterDialogOpen(false);
-    };
-    const handleClickOpen = () => {
-        setfilterDialogOpen(true);
-    };
-    const [reseted, setReseted] = useState(false)
-    useEffect(() => {
-        if (reseted) {
-            setReseted(false)
-        }
-    }, [reseted])
+import { FilterComponentProps } from '@/core_components/models/facetModel/filterTypes';
+import { useFilterDialog } from '@/component_library/filters_fab/useFilterDialog';
+
+const FilterOptions = lazy(() => import('../filter_options/filterOptions'));
+
+const FiltersFab = ({ facet, handleFacetSelection, clearFacets, applyFilters, q, hasChanges, selectedFacets }: FilterComponentProps) => {
+    const { isOpen, handleClose, handleOpen } = useFilterDialog()
+
     return (
         <>
             <Fab
-                onClick={handleClickOpen}
-
-                sx={{ position: 'fixed', display: { xs: 'block', md: 'none' }, bottom: 15, right: 0, left: 0, m: 'auto', p: '0 20px', width: 'fit-content', backgroundColor: 'white', color: 'black' }} variant='extended' aria-label="add">
-                <Typography fontSize={15} color="black">Filters</Typography> &nbsp; &nbsp; <TuneOutlinedIcon fontSize='small' />
+                onClick={handleOpen}
+                sx={{ position: 'fixed', display: { xs: 'flex', md: 'none' }, alignItems: 'center', bottom: 15, right: 0, left: 0, m: 'auto', p: '0 20px', width: 'fit-content', backgroundColor: 'white', color: 'black' }} variant='extended' aria-label="add">
+                <Typography fontSize={15} color="black">Filters  </Typography>&nbsp; &nbsp; <TuneOutlinedIcon fontSize='small' />
             </Fab>
             <Dialog
                 onClose={handleClose}
-                open={filterDialogOpen}>
+                open={isOpen}>
                 <Box padding={3} width={'70vw'}>
-                    <FilterOptions key={reseted ? 'reset' : 'normal'} handleFacetSelection={handleFacetSelection} facet={facet} />
+                    <Suspense fallback={<div>Loading filters...</div>}>
+                        <FilterOptions
+                            handleFacetSelection={handleFacetSelection}
+                            facet={facet}
+                            selectedFacets={selectedFacets} />
+                    </Suspense>
                     <Stack direction={'row'} gap={1}>
                         <StyledButton
-                            onClick={() => {
-                                clearFacets();
-                                setReseted(true)
-                            }}
+                            onClick={clearFacets}
                             variant='outlined'>
                             Clear
                         </StyledButton>
                         <StyledButton
-                            isEnabled={facetsSelected}
+                            isEnabled={hasChanges}
                             onClick={() => {
-                                if (!facetsSelected) return
+                                if (!hasChanges) return
                                 applyFilters(q)
                                 handleClose()
                             }}

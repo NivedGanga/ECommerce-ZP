@@ -7,25 +7,28 @@ import FiltersFab from '../filters_fab/filtersFab'
 import { useProductContent } from '../product_content/useProductContent'
 
 const ProductCollections = ({ q }: { q?: string }) => {
-    const { loading, fetchProductContents, products, facet, page, handleFacetSelection, clearFacets, applyFilters, facetsSelected, changePage } = useProductContent()
+    const { loading, fetchProductContents, products, facet, page, handleFacetSelection, clearFacets, applyFilters, facetsSelected, hasChanges, changePage, selectedFacets } = useProductContent()
     useEffect(() => {
         fetchProductContents(q)
     }, [])
 
     useEffect(() => {
-        if (page == 0) return;
+        if (page == null) return;
         applyFilters(q)
-        console.log(page)
     }, [page])
 
     return (
         <>
             <SideBar
                 facetsSelected={facetsSelected}
+                hasChanges={hasChanges}
                 q={q}
                 loading={loading}
                 applyFilters={applyFilters}
-                clearFacets={clearFacets} handleFacetSelection={handleFacetSelection} facet={facet} />
+                clearFacets={clearFacets}
+                handleFacetSelection={handleFacetSelection}
+                facet={facet}
+                selectedFacets={selectedFacets} />
             <Box overflow={{
                 md: 'hidden auto',
                 xs: 'hidden'
@@ -41,9 +44,13 @@ const ProductCollections = ({ q }: { q?: string }) => {
                 </Box>
             </Box>
             <FiltersFab facetsSelected={facetsSelected}
+                hasChanges={hasChanges}
                 q={q}
                 applyFilters={applyFilters}
-                clearFacets={clearFacets} handleFacetSelection={handleFacetSelection} facet={facet} />
+                clearFacets={clearFacets}
+                handleFacetSelection={handleFacetSelection}
+                facet={facet}
+                selectedFacets={selectedFacets} />
         </>
     )
 }
