@@ -33,10 +33,10 @@ function DetailedOrderDescriptions(props: Props) {
                     </Typography>
                 ))}
             <Typography fontWeight={'600'} fontSize={18} marginTop={4} paddingBottom={1}>Ordered on</Typography>
-            <Typography fontSize={14}>
+            <Typography fontSize={14}>  
                 {dateFormater(orderedDate)}
             </Typography>
-            <Typography fontWeight={'600'} fontSize={18} marginTop={4} paddingBottom={1}>Ordered on</Typography>
+            <Typography fontWeight={'600'} fontSize={18} marginTop={4} paddingBottom={1}>Delivery </Typography>
             <Typography fontSize={14}>
                 {dateFormater(orderedDate,5)}
             </Typography>

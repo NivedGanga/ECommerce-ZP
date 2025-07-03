@@ -1,27 +1,12 @@
 'use client'
 import { Box } from '@mui/material'
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import FilterOptions from '../filter_options/filterOptions'
-import { FacetModel, FacetValue } from '@/core_components/models/facetModel/facetModel'
 import StyledButton from '@/shared_features/display_elements/styled_button/styledButton'
 import LoadingSidebarOptions from './loading/loadingSidebarOptions'
-interface SideBarProps {
-    facet: FacetModel | null;
-    handleFacetSelection: (facetIndex: number, facetValue: FacetValue, operation?: 'add' | 'remove') => void;
-    clearFacets: () => void;
-    q?: string;
-    applyFilters: (q?: string) => void;
-    facetsSelected: boolean;
-    loading?: boolean
-}
+import { FilterComponentProps } from '@/core_components/models/facetModel/filterTypes'
 
-function SideBar({ facet, handleFacetSelection, clearFacets, applyFilters, q, facetsSelected, loading = false }: SideBarProps) {
-    const [reseted, setReseted] = useState(false)
-    useEffect(() => {
-        if (reseted) {
-            setReseted(false)
-        }
-    }, [reseted])
+const SideBar = ({ facet, handleFacetSelection, clearFacets, applyFilters, q, hasChanges, loading = false, selectedFacets }: FilterComponentProps) => {
     return (
         <Box
             display={{
@@ -36,24 +21,24 @@ function SideBar({ facet, handleFacetSelection, clearFacets, applyFilters, q, fa
             <Box height={'80dvh'} paddingBottom={10} overflow={'auto'}>
                 {
                     loading ? <LoadingSidebarOptions /> :
-                        <FilterOptions key={reseted ? 'reset' : 'normal'} handleFacetSelection={handleFacetSelection} facet={facet} />
+                        <FilterOptions
+                            handleFacetSelection={handleFacetSelection}
+                            facet={facet}
+                            selectedFacets={selectedFacets} />
                 }
             </Box>
             {
                 !loading && <Box position={'absolute'} left={0} display={'flex'} gap={1} right={0} mx={'auto'} top={'79dvh'}>
                     <StyledButton
                         bgColor='#ffffff'
-                        onClick={() => {
-                            clearFacets();
-                            setReseted(true)
-                        }}
+                        onClick={clearFacets}
                         variant='outlined'>
                         Clear
                     </StyledButton>
                     <StyledButton
-                        isEnabled={facetsSelected}
+                        isEnabled={hasChanges}
                         onClick={() => {
-                            if (!facetsSelected) return
+                            if (!hasChanges) return
                             applyFilters(q)
                         }}
                         variant='contained'>

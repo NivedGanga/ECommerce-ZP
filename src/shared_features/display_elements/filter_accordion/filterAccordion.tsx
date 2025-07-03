@@ -2,17 +2,18 @@ import { Accordion, AccordionDetails, AccordionSummary, FormGroup, Typography } 
 import React from 'react'
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import AccordionOptionCheckbox from '../accordion_option_checkbox/accordionOptionCheckbox';
-import { FacetValue } from '@/core_components/models/facetModel/facetModel';
+import { FacetValue, Facet, isFacetValueSelected } from '@/core_components/models/facetModel/facetModel';
 
 interface Props {
     title: string,
     options: Array<FacetValue>,
     facetIndex: number,
     handleFacetSelection: (facetIndex: number, facetValue: FacetValue, operation?: 'add' | 'remove') => void,
+    selectedFacets: Array<Facet>
 }
 
-function FilterAccordion(props: Props) {
-    const { title, options, handleFacetSelection, facetIndex } = props
+const FilterAccordion = React.memo((props: Props) => {
+    const { title, options, handleFacetSelection, facetIndex, selectedFacets } = props
 
     return (
         <Accordion sx={{ bgcolor: 'transparent', padding: 0 }} elevation={0}>
@@ -27,7 +28,7 @@ function FilterAccordion(props: Props) {
             <AccordionDetails sx={{ padding: 0 }}>
                 <FormGroup>
                     {
-                        options.map((val, index) => (
+                        options.map((val) => (
                             <AccordionOptionCheckbox
                                 handleRemove={() => {
                                     handleFacetSelection(facetIndex, val, 'remove')
@@ -35,13 +36,18 @@ function FilterAccordion(props: Props) {
                                 handleSelection={() => {
                                     handleFacetSelection(facetIndex, val)
                                 }}
-                                checked={val.isSelected} key={index} count={index + 20} label={val.name} />
+                                checked={isFacetValueSelected(selectedFacets, facetIndex, val.id)}
+                                key={val.id}
+                                count={val.count}
+                                label={val.name} />
                         ))
                     }
                 </FormGroup>
             </AccordionDetails>
         </Accordion>
     )
-}
+})
+
+FilterAccordion.displayName = 'FilterAccordion'
 
 export default FilterAccordion

@@ -1,8 +1,8 @@
 import { Facet, FacetModel, FacetValue } from "@/core_components/models/facetModel/facetModel"
 import { ProductModel } from "@/core_components/models/product_model/productModel"
 import { useProduct } from "@/core_components/services/products/useProducts"
-import { mensClothingCategoryId } from "@/core_components/utils/constants/constants"
-import { useEffect, useState } from "react"
+import { mensClothingCategoryId, productsItemCount } from "@/core_components/utils/constants/constants"
+import { useCallback, useEffect, useState } from "react"
 import { toast } from "react-toastify/unstyled"
 
 export const useProductContent = () => {
@@ -11,29 +11,36 @@ export const useProductContent = () => {
     const [products, setProducts] = useState<Array<ProductModel>>([])
     const [facet, setFacet] = useState<FacetModel | null>(null)
     const [selectedFacets, setSelectedFacets] = useState<Array<Facet>>([])
+    const [initialSelectedFacets, setInitialSelectedFacets] = useState<Array<Facet>>([])
     const [facetsSelected, setFacetsSelected] = useState(false)
-    const [page, setPage] = useState(0)
-
+    const [hasChanges, setHasChanges] = useState(false)
+    const [page, setPage] = useState<number | null>(null)
     useEffect(() => {
-        setFacetsSelected(selectedFacets.some(facet => facet.facetValues.length > 0))
-    }, [selectedFacets])
+        const currentHasSelections = selectedFacets.some(facet => facet.facetValues.length > 0)
+        const selectionsChanged = JSON.stringify(selectedFacets) !== JSON.stringify(initialSelectedFacets)
+
+        setFacetsSelected(currentHasSelections)
+        setHasChanges(selectionsChanged)
+    }, [selectedFacets, initialSelectedFacets])
 
 
-    const fetchProductContents = (q?: string, filters?: object, preserveSelectedFacets?: boolean) => {
+    const fetchProductContents = useCallback((q?: string, filters?: object, preserveSelectedFacets?: boolean) => {
         setProducts([])
         setLoading(true)
         fetchProducts({
             categoryId: mensClothingCategoryId,
-            offset: page * 30,
+            offset: (page ?? 0) * 30,
             store: 'US',
             q: q,
-            limit: 30,
+            limit: productsItemCount,
             sort: 'freshness',
             ...filters
         }, (results, facet) => {
             setFacet(facet)
+            const emptyFacets = facet.facets.map((f) => ({ ...f, facetValues: [] }))
             if (!preserveSelectedFacets) {
-                setSelectedFacets(facet.facets.map((f) => ({ ...f, facetValues: [] })))
+                setSelectedFacets(emptyFacets)
+                setInitialSelectedFacets(emptyFacets)
             }
             setProducts(results)
             setLoading(false)
@@ -43,10 +50,9 @@ export const useProductContent = () => {
                 setLoading(false)
             }
         )
-    }
+    }, [fetchProducts, page])
 
-    const handleFacetSelection = (facetIndex: number, facetValue: FacetValue, operation?: 'add' | 'remove') => {
-        console.log(facetIndex, facetValue)
+    const handleFacetSelection = useCallback((facetIndex: number, facetValue: FacetValue, operation?: 'add' | 'remove') => {
         setSelectedFacets(prev =>
             prev.map((facet, index) =>
                 index === facetIndex
@@ -59,12 +65,15 @@ export const useProductContent = () => {
                     : facet
             )
         )
-    }
-    const clearFacets = () => {
-        setSelectedFacets([])
-    }
+    }, [])
 
-    const applyFilters = (q?: string) => {
+    const clearFacets = useCallback(() => {
+        if (facet) {
+            setSelectedFacets(facet.facets.map((f) => ({ ...f, facetValues: [] })))
+        }
+    }, [facet])
+
+    const applyFilters = useCallback((q?: string) => {
         const filters = selectedFacets.reduce((cf, facet) => {
             if (facet.facetValues.length === 0) return cf
             const values = facet.facetValues.map((fv) => fv.id)
@@ -73,17 +82,17 @@ export const useProductContent = () => {
                 [facet.id]: values.length === 1 ? values[0] : values.length > 1 ? values.join('%2C') : values
             }
         }, {})
-        console.log(filters)
         fetchProductContents(q, filters, true)
-    }
+        setInitialSelectedFacets(JSON.parse(JSON.stringify(selectedFacets)))
+    }, [selectedFacets, fetchProductContents])
 
-    const changePage = (option: 'prev' | 'next') => {
+    const changePage = useCallback((option: 'prev' | 'next') => {
         if (option == 'next') {
-            setPage(page + 1)
+            setPage((page ?? 0) + 1)
         } else {
-            setPage(page - 1)
+            setPage((page ?? 0) - 1)
         }
-    }
+    }, [page])
 
     return {
         products,
@@ -95,6 +104,7 @@ export const useProductContent = () => {
         clearFacets,
         applyFilters,
         facetsSelected,
+        hasChanges,
         changePage,
         page
     }
