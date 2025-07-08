@@ -39,6 +39,7 @@ function WishlistIconButton(props: Props) {
             removeItem(product)
         }
     }
+    
     return (
         <Button variant='contained'
             onClick={() => handleClick()}
@@ -54,8 +55,8 @@ function WishlistIconButton(props: Props) {
                 position: position
             }} disableElevation >
             {
-                checked || product.inWishlist ? <Favorite sx={{ transform: 'rotate(-30deg)' }} color='error' /> :
-                    <FavoriteBorderOutlined sx={{ transform: 'rotate(-30deg)' }} color='disabled' />
+                checked || product.inWishlist ? <Favorite data-testid='wishlist-added-icon' sx={{ transform: 'rotate(-30deg)' }} color='error' /> :
+                    <FavoriteBorderOutlined data-testid='wishlist-not-added-icon' sx={{ transform: 'rotate(-30deg)' }} color='disabled' />
             }
         </Button>
     )

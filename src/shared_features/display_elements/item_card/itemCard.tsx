@@ -10,7 +10,6 @@ interface Props {
     product: ProductModel
     width?: string,
     sx?: SxProps,
-    isAddToCartButtonVisible?: boolean,
     wishlistPositionProps?: {
         bottom?: number | string;
         top?: number | string;
@@ -23,7 +22,7 @@ interface Props {
 function ItemCard(props: Props) {
     const { product, width, sx, wishlistPositionProps, wishlistButtonBgColor } = props
     const router = useRouter()
-
+    
     return (
         <Card elevation={0} sx={{ bgcolor: 'transparent', ...sx }}>
             <Box position={'relative'} width={width}>
@@ -31,10 +30,10 @@ function ItemCard(props: Props) {
                 <WishlistIconButton bgColor={wishlistButtonBgColor} positionProps={wishlistPositionProps} product={product} />
             </Box>
             <CardActionArea
+                data-testid='action-area'
                 onClick={() => {
                     router.push(`/view/${product.pid}`)
-                }}
-            >
+                }}>
                 <CardContent sx={{ padding: '10px 0 0 0' }}>
                     <Typography sx={{ color: '#000000af', fontWeight: '300' }}>
                         {product.brandName}

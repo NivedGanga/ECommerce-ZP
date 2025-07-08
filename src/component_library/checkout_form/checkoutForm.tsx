@@ -4,10 +4,12 @@ import Row from '@/shared_features/display_elements/row/row'
 import StyledButton from '@/shared_features/display_elements/styled_button/styledButton'
 import FormTextField from '@/shared_features/input_elements/form_text_field/formTextField'
 import { Divider } from '@mui/material'
+import { FormikProps } from 'formik'
 import React from 'react'
+import { CheckoutFormValues } from '../checkout_area/useCheckoutArea'
+
 interface Props {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    formik: any
+    formik: FormikProps<CheckoutFormValues>
 }
 
 const CheckoutForm = (props: Props) => {

@@ -7,7 +7,7 @@ interface WishlistState {
     updatingItem: number | null
 }
 
-const initialState: WishlistState = {
+export const initialWishlistState: WishlistState = {
     wishlistItems: [],
     loading: false,
     updatingItem: null
@@ -15,7 +15,7 @@ const initialState: WishlistState = {
 
 const wishlistSlice = createSlice({
     name: 'cart',
-    initialState,
+    initialState: initialWishlistState,
     reducers: {
         setWishlistItems: (state, action: PayloadAction<Array<ProductModel>>) => {
             state.wishlistItems = action.payload
@@ -34,4 +34,4 @@ const wishlistSlice = createSlice({
 
 
 export default wishlistSlice.reducer
-export const { removeWishlistItem, setWishlistItems, setWishlistLoading,addWishlistItem } = wishlistSlice.actions
+export const { removeWishlistItem, setWishlistItems, setWishlistLoading, addWishlistItem } = wishlistSlice.actions

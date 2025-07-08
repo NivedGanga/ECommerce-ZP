@@ -38,7 +38,7 @@ function NavigationBar() {
                     <NavigationBarIconButton tilted route='/wishlist'>
                         <FavoriteBorderOutlinedIcon />
                     </NavigationBarIconButton>
-                    <NavigationBarIconButton route='/cart' text='cart' haveText>
+                    <NavigationBarIconButton route='/cart' text='cart'>
                         <ShoppingCartOutlinedIcon />
                     </NavigationBarIconButton>
                     <AccountButton />
