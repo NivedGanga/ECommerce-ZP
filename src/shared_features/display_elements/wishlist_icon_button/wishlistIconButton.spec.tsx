@@ -7,6 +7,7 @@ import { fireEvent, render, screen, waitFor } from "@testing-library/react"
 import { useSelector } from "react-redux"
 import WishlistIconButton from "./wishlistIconButton"
 import { ProductModel } from "@/core_components/models/product_model/productModel"
+import { mockFirebaseUser } from "@/core_components/services/__mocks__/mockUser"
 
 
 const addItemMock = jest.fn()
@@ -58,13 +59,7 @@ describe("WishlistIconButton", () => {
     it("the product should add to wishlist when clicking the button if the user is signed in and product is not in wishlist", async () => {
         (useSelector as jest.MockedFunction<typeof useSelector>).mockImplementation((selector: (state: IRootState) => unknown) => selector({
             auth: {
-                user: {
-                    uid: "test",
-                    displayName: 'test name',
-                    email: 'test email',
-                    emailVerified: true,
-                    photoURL: 'test url'
-                }
+                user: mockFirebaseUser
             },
             cart: initialCartState,
             home: initialHomeState,

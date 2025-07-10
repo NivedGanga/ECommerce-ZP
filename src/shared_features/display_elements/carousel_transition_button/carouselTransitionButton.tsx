@@ -14,7 +14,10 @@ function CarouselTransitionButton(props: Props) {
     return (
         <Box marginTop={3} display={'flex'} justifyContent={'center'} gap={'0 10px'}>
             <Button
+                data-testid='carousel-previous-button'
+                className='carousel-previous-button'
                 variant='outlined'
+                
                 sx={{
                     borderColor: 'gray',
                     height: '40px',
@@ -28,6 +31,8 @@ function CarouselTransitionButton(props: Props) {
                 <ArrowBackIosNewOutlined />
             </Button>
             <Button
+                data-testid='carousel-next-button'
+                className='carousel-next-button'
                 variant='outlined'
                 sx={{
                     borderColor: 'gray',

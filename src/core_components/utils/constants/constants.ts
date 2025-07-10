@@ -17,3 +17,5 @@ export const checkoutSteps = ['information', 'shipping', 'payment']
 
 export const checkoutItemKey = 'checkoutItem'
 export const productsItemCount = 30
+
+export const noImageUrl = 'https://i.sstatic.net/y9DpT.jpg' 

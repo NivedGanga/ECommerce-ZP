@@ -10,8 +10,7 @@ export const useProduct = () => {
         api.get('/products/v2/list', productRequestModel,
             (res) => {
                 const products: ProductModel[] = []
-                // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                res.data.products.forEach((product: any) => {
+                res.data.products.forEach((product: object) => {
                     products.push(fromJsonToProductModel(product))
                 });
                 const facet = fromJsonToFacetModel(res.data)

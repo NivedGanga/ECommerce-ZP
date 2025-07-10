@@ -4,10 +4,12 @@ import React from 'react'
 
 const LoadingNewThisWeek = () => {
     return (
-        <Row stackProps={{
-            height: '350px',
-            gap: 2
-        }}>
+        <Row
+            data-testid="new-this-week-loading"
+            stackProps={{
+                height: '350px',
+                gap: 2
+            }}>
             <LoadingItemCard sx={{ height: '100%', flex: 1, }} />
             <LoadingItemCard sx={{
                 height: '100%', flex: 1, display: {

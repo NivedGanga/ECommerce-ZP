@@ -6,7 +6,7 @@ import { toast } from "react-toastify/unstyled"
 import * as Yup from "yup"
 
 const initialValues: LoginModel = {
-    email: null
+    email: ''
 }
 
 export const useLogin = () => {

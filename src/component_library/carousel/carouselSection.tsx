@@ -24,6 +24,8 @@ function CarouselSection({ products }: { products: Array<ProductModel> }) {
         }
     };
 
+    console.log(ItemCard)
+
     return (
         <Box marginTop={5} position={'relative'}>
             <Carousel

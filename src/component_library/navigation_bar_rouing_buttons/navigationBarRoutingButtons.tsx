@@ -41,6 +41,7 @@ const NavigationBarRoutingButtons = () => {
                 <NavigationBarTextButton text='Collections' route='/products' />
             </Box>
             <Dialog
+                
                 data-testid='mobile-navigation-buttons-dialog'
                 sx={{
                     display: {

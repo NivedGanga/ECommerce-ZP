@@ -4,10 +4,12 @@ import { toast } from "react-toastify/unstyled"
 import * as Yup from 'yup'
 import { useFormik } from 'formik'
 import { useState } from "react"
+
 const initialValues: RegisterModel = {
-    email: null,
-    fullName: null
+    email: '',
+    fullName: ''
 }
+
 export const useRegister = () => {
     const [loading, setLoading] = useState(false)
     const { sendEmailLinkService } = useAuthService()
@@ -15,6 +17,7 @@ export const useRegister = () => {
         email: Yup.string().email().required(),
         fullName: Yup.string().required(),
     })
+    
     const formik = useFormik({
         validationSchema: registerFormSchema,
         initialValues: initialValues,

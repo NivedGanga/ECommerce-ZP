@@ -1,5 +1,5 @@
 
-import { getAuth, signInWithEmailLink, sendSignInLinkToEmail, User } from "firebase/auth";
+import { getAuth, signInWithEmailLink, sendSignInLinkToEmail, User, isSignInWithEmailLink } from "firebase/auth";
 import { app } from "../../../../firebase.config";
 
 export const useAuthService = () => {
@@ -46,9 +46,17 @@ export const useAuthService = () => {
         }
     };
 
+    const checkIsSignInWithEmailLink = (callback: () => void) => {
+        const f = isSignInWithEmailLink(auth, window.location.href)
+        if (f) {
+            callback()
+        }
+    }
+
     return {
         sendEmailLinkService,
         completeEmailLinkSignIn,
-        logout
+        logout,
+        checkIsSignInWithEmailLink
     }
 }

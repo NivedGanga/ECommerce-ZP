@@ -80,6 +80,7 @@ function SearchBar(props: props) {
             />
             {((showDropdown && suggestions.length > 0) || loading) && (
                 <Box
+                    data-testid='search-results'
                     id='search-results'
                     position='absolute'
                     borderRadius={2}
@@ -98,7 +99,7 @@ function SearchBar(props: props) {
                         overflow={'auto'}
                     >
                         {
-                            loading ? 'Loading...' :
+                            loading ? <Typography>Loading...</Typography> :
                                 suggestions.map((e, index) => {
                                     return <Box
                                         onClick={() => handleOptionClick(e.searchTerm)}

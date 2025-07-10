@@ -24,13 +24,12 @@ function LoginForm() {
                 onBlur={formik.handleBlur}
                 name="email">
             </StyledTextField>
-            <StyledButton loading={loading} onClick={() => formik.handleSubmit()} variant='contained'>
+            <StyledButton loading={loading} onClick={() => {
+                console.log("submit button clicked")
+                formik.handleSubmit()
+            }} variant='contained'>
                 Submit
             </StyledButton>
-            {/* <Divider />
-            <StyledButton>
-                <Google /> &nbsp;Sign in with Google
-            </StyledButton> */}
             <Box display={'flex'} alignItems={'center'} width={"100%"} justifyContent={'center'}>
                 <Typography sx={{ color: '#000000af' }}>Don&apos;t have an account? </Typography>
                 <Button onClick={() => { router.replace('/register') }}>Register</Button>

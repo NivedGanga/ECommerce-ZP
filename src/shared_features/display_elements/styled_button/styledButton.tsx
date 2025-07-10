@@ -16,6 +16,7 @@ function StyledButton(props: Props) {
 
     return (
         <Button
+            data-testid='styled-button'
             disabled={!isEnabled}
             loading={loading}
             onClick={onClick}
