@@ -3,7 +3,7 @@ import { Link } from '@mui/material'
 import React from 'react'
 
 interface Props {
-    onClick?: () => void
+    onClick: () => void
     text: string
     isDimColor?: boolean
 }

@@ -3,6 +3,7 @@ import ProductShow from '@/component_library/product_show/productShow'
 import React, { useEffect } from 'react'
 import ProductDetails from '@/component_library/product_details/productDetails'
 import { useDetailedProduct } from './useDetailedProduct'
+import { Typography } from '@mui/material'
 
 const DetailedProduct = ({ pid }: { pid: string }) => {
     const { getDetailedProduct, product, loading } = useDetailedProduct()
@@ -15,7 +16,7 @@ const DetailedProduct = ({ pid }: { pid: string }) => {
         <>
             {
                 loading && <>
-                    <br /><br /><br /> Loading...
+                    <br /><br /><br /> <Typography>Loading...</Typography>
                 </>
             }
             {

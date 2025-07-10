@@ -6,7 +6,7 @@ const AuthStatusCheck = () => {
     const { completeAuthentication } = useAuthStatusCheck()
     useEffect(() => {
         completeAuthentication()
-    }, [completeAuthentication]);
+    }, []);
 
     return (
         <div>

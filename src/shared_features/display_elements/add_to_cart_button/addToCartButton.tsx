@@ -7,6 +7,8 @@ import { useAddToCart } from './useAddToCart'
 import { ProductModel } from '@/core_components/models/product_model/productModel'
 import { useRouter } from 'next/navigation'
 import { SizeChart } from '@/core_components/models/sizeChart/sizeChart'
+import { IRootState } from "@/core_components/redux/store"
+import { useSelector } from "react-redux"
 
 interface Props {
     product: ProductModel,
@@ -16,18 +18,22 @@ interface Props {
 
 function AddToCartButton(props: Props) {
     const { isIconButton = false, product, size } = props
-    console.log(product)
     const { addToCart, loading, success } = useAddToCart()
     const router = useRouter()
-
+    const user = useSelector((state: IRootState) => state.auth.user)
     const handleOnClick = () => {
-
+        console.log(user)
+        if (!user) {
+            router.push('/login')
+            return;
+        }
         if (success || product.inCart) {
             router.push('/cart')
             return;
         }
         addToCart(product, size.size)
     }
+
     return (
         <>
             {
@@ -39,6 +45,7 @@ function AddToCartButton(props: Props) {
                 </StyledButton> :
                     isIconButton ?
                         <Button
+                            data-testid="add-to-cart-button"
                             loading={loading}
                             onClick={() => handleOnClick()}
                             disableElevation

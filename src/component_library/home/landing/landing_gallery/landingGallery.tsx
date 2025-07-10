@@ -4,6 +4,7 @@ import { Box } from '@mui/material'
 import React, { useEffect } from 'react'
 import { useLandingGallery } from './useLandingGallery'
 import GalleryLoading from './loading/galleryLoading'
+import { noImageUrl } from '@/core_components/utils/constants/constants'
 
 function LandingGallery() {
     const { fetchGallery, products, loading } = useLandingGallery()
@@ -17,8 +18,13 @@ function LandingGallery() {
             xs: 1
         }} flex={2}>
             {
-                loading ? <GalleryLoading /> : products.map((v, k) => (
+                loading ? <GalleryLoading /> : products.slice(0, 2).map((v, k) => (
                     <ItemShowCard key={k} flex={1} src={v.image!} pid={v.pid} />
+                ))
+            }
+            {
+                !loading && products.length == 0 && Array(2).fill(0).map((v, k) => (
+                    <ItemShowCard key={k} flex={1} src={noImageUrl} pid={k} />
                 ))
             }
         </Box>

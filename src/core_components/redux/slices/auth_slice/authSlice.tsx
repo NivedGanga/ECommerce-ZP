@@ -5,13 +5,13 @@ interface authState {
     user: CurrentUser | null
 }
 
-const initialState: authState = {
+export const initialAuthState: authState = {
     user: null
 }
 
 const authSlice = createSlice({
     name: 'auth',
-    initialState,
+    initialState: initialAuthState,
     reducers: {
         loginUser: (state, action: PayloadAction<CurrentUser>) => {
             state.user = action.payload

@@ -5,6 +5,7 @@ import React from 'react'
 import { ResponsiveStyleValue, Theme } from '@mui/system'
 import { Property } from 'csstype'
 import { useRouter } from 'next/navigation'
+
 interface Props {
     flex?: number,
     src: string,
@@ -25,22 +26,24 @@ function ItemShowCard(props: Props) {
         }
         router.push(`/view/${pid}`)
     }
+
     return (
         <Box
+            data-textid="item-show-card-box"
             onClick={() => { handleOnClick() }}
             width={width}
             border={1} borderColor={'#0000002f'} sx={{
                 aspectRatio: aspectRatio,
                 position: 'relative',
                 cursor: 'pointer'
-            }} flex={flex}>
+            }}
+            flex={flex}>
             <Image
                 sizes="(max-width: 768px)"
                 fill
-
                 style={{ objectFit: 'cover' }}
                 src={src}
-                alt=''
+                alt='Product image'
             />
         </Box>
     )

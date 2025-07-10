@@ -6,6 +6,17 @@ import { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { toast } from 'react-toastify/unstyled'
 import * as Yup from 'yup'
+export interface CheckoutFormValues {
+    address: string
+    city: string
+    fullName: string
+    phone2: number | undefined
+    postalCode: number | undefined
+    state: string
+    email: string
+    phone: number | undefined
+}
+
 export const useCheckoutArea = () => {
     const [loading, setLoading] = useState(false)
     const [success, setSuccess] = useState<'next' | 'ordered' | null>(null)
@@ -14,16 +25,7 @@ export const useCheckoutArea = () => {
     useEffect(() => {
         setSuccess(null)
     }, [success])
-    interface CheckoutFormValues {
-        address: string
-        city: string
-        fullName: string
-        phone2: number | undefined
-        postalCode: number | undefined
-        state: string
-        email: string
-        phone: number | undefined
-    }
+
 
     const initialFormValues: CheckoutFormValues = {
         address: '',

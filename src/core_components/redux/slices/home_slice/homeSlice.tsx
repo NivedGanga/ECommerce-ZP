@@ -5,13 +5,13 @@ interface HomeState {
     newProducts: Array<ProductModel>
 }
 
-const initialState: HomeState = {
+export const initialHomeState: HomeState = {
     galleryProducts: [],
     newProducts: []
 }
 
 const homeSlice = createSlice({
-    initialState: initialState,
+    initialState: initialHomeState,
     name: 'home',
     reducers: {
         setGallery: (state, action: PayloadAction<Array<ProductModel>>) => {

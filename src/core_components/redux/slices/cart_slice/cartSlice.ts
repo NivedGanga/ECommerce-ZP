@@ -9,7 +9,7 @@ interface CartState {
     total: number
 }
 
-const initialState: CartState = {
+export const initialCartState: CartState = {
     cartItems: [],
     loading: false,
     updatingItem: null,
@@ -18,7 +18,7 @@ const initialState: CartState = {
 
 const cartSlice = createSlice({
     name: 'cart',
-    initialState,
+    initialState: initialCartState,
     reducers: {
         setCartItems: (state, action: PayloadAction<Array<CartModel>>) => {
             state.cartItems = action.payload

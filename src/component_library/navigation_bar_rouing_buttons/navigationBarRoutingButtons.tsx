@@ -6,36 +6,43 @@ import MenuIcon from '@mui/icons-material/Menu';
 import Column from '@/shared_features/display_elements/column/column';
 
 const NavigationBarRoutingButtons = () => {
-    const [navigationDialogVisibility, SetNavigationDialogVisibility] = useState(false)
-    const handleOpen = () => {
-        SetNavigationDialogVisibility(true)
+    const [navigationDialogVisibility, setNavigationDialogVisibility] = useState(false)
+    const handleClick = () => {
+        if (navigationDialogVisibility)
+            setNavigationDialogVisibility(false)
+        else
+            setNavigationDialogVisibility(true)
     }
     const handleClose = () => {
-        SetNavigationDialogVisibility(false)
+        setNavigationDialogVisibility(false)
     }
     return (
         <>
             <IconButton
-                onClick={handleOpen}
+                data-testid='mobile-navigation-tooltip'
+                onClick={handleClick}
                 sx={{
-                    display: { md: 'none', xs: 'block' },
+                    display: { md: 'none', lg: 'none', xl: 'none', xs: 'block' },
                     position: 'absolute',
                     top: 0, bottom: 0, m: 'auto',
                     left: 15,
                 }}>
                 <MenuIcon sx={{ fontSize: '28px' }} />
             </IconButton>
-            <Box sx={{
-                display: {
-                    md: 'flex',
-                    xs: 'none'
-                }, gap: '0 10px', alignItems: 'center',
-            }}>
+            <Box
+                data-testid='navigation-buttons'
+                sx={{
+                    display: {
+                        md: 'flex',
+                        xs: 'none'
+                    }, gap: '0 10px', alignItems: 'center',
+                }}>
                 <NavigationBarTextButton text='Home' route='/home' />
                 <NavigationBarTextButton text='Collections' route='/products' />
-                {/* <NavigationBarTextButton text='New' route='/' /> */}
             </Box>
             <Dialog
+                
+                data-testid='mobile-navigation-buttons-dialog'
                 sx={{
                     display: {
                         xs: 'block',
@@ -65,7 +72,6 @@ const NavigationBarRoutingButtons = () => {
                 <Column>
                     <NavigationBarTextButton onClick={handleClose} text='Home' route='/home' />
                     <NavigationBarTextButton onClick={handleClose} text='Collections' route='/products' />
-                    <NavigationBarTextButton onClick={handleClose} text='New' route='/' />
                 </Column>
             </Dialog>
         </>
