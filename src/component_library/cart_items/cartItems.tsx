@@ -16,7 +16,7 @@ const CartItems = () => {
       {
         cartstate.cartItems.length == 0 ?
           <Grid container width={'100%'} height={'max-content'} sx={{ placeContent: 'center', placeItems: 'center' }}>
-            <Column stackProps={{ alignItems: 'center',gap:2 }}>
+            <Column stackProps={{ alignItems: 'center', gap: 2 }}>
               <Image
                 style={{
                   placeSelf: 'center'
@@ -30,6 +30,7 @@ const CartItems = () => {
               </Typography>
             </Column>
           </Grid> : <Grid
+            container
             rowSpacing={3} columnSpacing={2} width={'100%'}>
             {
               cartstate.cartItems.map((cartItem, k) => (
