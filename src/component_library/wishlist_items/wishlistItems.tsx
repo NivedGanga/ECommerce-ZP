@@ -13,7 +13,8 @@ const WishlistItems = () => {
         <>{
             wishlist.length == 0 ? <Grid
                 sx={{
-                    placeContent: 'center'
+                    placeContent: 'center',
+                    height:'60dvh'
                 }}
                 container>
                 <Column stackProps={{ alignItems: 'center' }}>

@@ -39,7 +39,7 @@ function WishlistIconButton(props: Props) {
             removeItem(product)
         }
     }
-    
+
     return (
         <Button variant='contained'
             onClick={() => handleClick()}
@@ -52,7 +52,10 @@ function WishlistIconButton(props: Props) {
                 bgcolor: `${bgColor ? bgColor : '#00000000'}`,
                 minWidth: '40px',
                 width: '40px',
-                position: position
+                position: position,
+                '&:hover': {
+                    transform: 'scale(1.1)'
+                }
             }} disableElevation >
             {
                 checked || product.inWishlist ? <Favorite data-testid='wishlist-added-icon' sx={{ transform: 'rotate(-30deg)' }} color='error' /> :

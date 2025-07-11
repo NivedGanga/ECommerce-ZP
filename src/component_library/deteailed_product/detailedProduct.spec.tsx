@@ -53,7 +53,7 @@ describe("detailed product", () => {
         })
 
         render(<DetailedProduct pid={mockPid} />)
-        const loading = screen.getByText("Loading...")
+        const loading = screen.getByTestId('detailed-product-loading')
         expect(loading).toBeInTheDocument()
     })
 
