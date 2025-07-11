@@ -15,11 +15,12 @@ const CartItems = () => {
     <>
       {
         cartstate.cartItems.length == 0 ?
-          <Grid container width={'100%'} height={'max-content'} sx={{ placeContent: 'center', placeItems: 'center' }}>
+          <Grid container width={'100%'} height={'65dvh'} sx={{ placeContent: 'center', placeItems: 'center' }}>
             <Column stackProps={{ alignItems: 'center', gap: 2 }}>
               <Image
                 style={{
-                  placeSelf: 'center'
+                  placeSelf: 'center',
+                
                 }}
                 src={emptyCart}
                 alt='empty-cart'
