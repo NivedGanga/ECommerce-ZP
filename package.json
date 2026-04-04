@@ -21,7 +21,7 @@
     "cookies-next": "^6.0.0",
     "firebase": "^11.9.1",
     "formik": "^2.4.6",
-    "next": "15.3.4",
+    "next": "15.3.8",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-multi-carousel": "^2.8.6",
